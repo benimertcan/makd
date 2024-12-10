@@ -3,13 +3,16 @@ import './App.css'
 
 import 'react-toastify/dist/ReactToastify.css';
 import Layout from './components/Layout';
+import Carousel from './components/Carousel';
 function App() {
 
 
   return (
     <>
        <ToastContainer />
-       <Layout/>
+       <Layout>
+        <Carousel/>
+        </Layout>
     </>
   )
 }
