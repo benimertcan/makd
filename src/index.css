@@ -10,6 +10,21 @@
   .mobile-menu {
     @apply font-normal text-3xl tracking-tighter
   }
+  .h2 {
+    @apply font-bold text-4xl leading-10 tracking-tighter
+  }
+  .h3{
+    @apply font-bold text-2xl
+  }
+  .h4{
+    @apply font-normal text-xl tracking-tighter
+  }
+  .paragraph{
+    @apply font-normal text-sm 
+  }
+  .small{
+    @apply font-normal text-xs
+  }
 }
 
 

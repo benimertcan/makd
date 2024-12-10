@@ -6,8 +6,8 @@ function Header() {
             <header className="flex flex-col my-5">
 
                 <div className='flex flex-row place-items-center  justify-evenly'>
-                    <img src="public/images/logo.svg" className="size-16" />
-                    <div className='flex flex-row gap-5'>
+                    <img src="public/images/logo.svg"  />
+                    <div className='flex flex-row gap-3'>
                         <User className='size-8' />
                         <Search className='size-8' />
                         <ShoppingCart className='size-8' />
