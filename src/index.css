@@ -19,6 +19,12 @@
   .h4{
     @apply font-normal text-xl tracking-tighter
   }
+  .h5{
+    @apply font-bold text-base
+  }
+  .h6{
+    @apply font-bold	text-sm
+  }
   .paragraph{
     @apply font-normal text-sm 
   }

@@ -6,14 +6,14 @@ export default {
   ],
   theme: {
     colors: {
-      'text-transparent':'#737373',
+    
       'text-light':'#FFFFFF',
       'text-dark':'#252B42',
       'bg-dark':'#252B42',
       'text-price':'#23856D',
       'primary-blue':'#23A6F0',
       'background-light':'#FAFAFA',
-      
+      'second-text-color':'#737373',
     },
     extend: {},
   },
