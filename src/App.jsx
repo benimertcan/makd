@@ -11,6 +11,7 @@ import Photo from './components/Photo';
 import MostPopular from './components/MostPopular';
 import Brands from './components/Brands';
 import FeaturedProducts from './components/FeaturedProducts';
+import Things from './components/Things';
 function App() {
 
 
@@ -24,6 +25,7 @@ function App() {
           <Furniture source={"/images/furnitureFirst.jpg"} />
           <BestSeller />
         </Wrapper>
+        <Things/>
         <Wrapper>
           <Photo source={"/images/photoOne.jpg"}/>
           <MostPopular/>

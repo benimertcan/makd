@@ -14,7 +14,8 @@ export default {
       'primary-blue':'#23A6F0',
       'background-light':'#FAFAFA',
       'second-text-color':'#737373',
-      'newRed':'#E74040'
+      'newRed':'#E74040',
+      'disable-element-color':'#8EC2F2',
     },
     extend: {},
   },

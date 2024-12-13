@@ -10,8 +10,8 @@ const FeaturedProduct = ({ image }) => {
     }
 
     return (
-        <div className="flex flex-col  max-w-[14rem] lg:max-w-[16rem]">
-            <div className="bg-cover bg-left bg-no-repeat size-56 lg:size-64"
+        <div className="flex flex-col  max-w-[14rem] lg:max-w-[20rem]">
+            <div className="bg-cover bg-left bg-no-repeat size-56 lg:size-80"
                 style={{ backgroundImage: `url(${image})` }}>
                 <div className='flex flex-col  text-center place-items-start p-3'>
                     <p className=" bg-newRed text-text-light px-2 h6">NEW</p>
