@@ -6,7 +6,7 @@ const Products = () => {
 
     return (
         <>
-            <section className="flex flex-col gap-10 bg-[#ECECEC] w-full p-12 justify-center md:flex-wrap md:flex-row">
+            <section className="flex flex-col gap-10 lg:gap-28 bg-[#ECECEC] w-full p-12 justify-center md:flex-wrap md:flex-row">
 
                <div className="flex flex-row  bg-background-light place-content-center self-center w-72 p-4 h-56">
                 <div className="flex flex-col justify-center gap-3 z-10">

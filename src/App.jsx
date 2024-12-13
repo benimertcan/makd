@@ -1,6 +1,5 @@
 import { ToastContainer } from 'react-toastify';
 import './App.css'
-
 import 'react-toastify/dist/ReactToastify.css';
 import Layout from './components/Layout';
 import Carousel from './components/Carousel';
@@ -11,6 +10,7 @@ import BestSeller, { BestSellerMini } from './components/BestSellerProducts';
 import Photo from './components/Photo';
 import MostPopular from './components/MostPopular';
 import Brands from './components/Brands';
+import FeaturedProducts from './components/FeaturedProducts';
 function App() {
 
 
@@ -38,6 +38,7 @@ function App() {
         </Wrapper>
         <BestSellerMini />
         <Brands/>
+        <FeaturedProducts/>
       </Layout>
     </>
   )

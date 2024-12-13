@@ -5,7 +5,7 @@ function MostPopular({ source }) {
 
     return (
         <>
-            <div className="flex flex-col place-content-center text-center p-5 gap-5 lg:h-[76vh] w-96 bg-background-light">
+            <div className="flex flex-col place-content-center my-5 text-center  gap-5 lg:h-[76vh]  bg-background-light">
                 <h3 className="h3">MOST POPULAR</h3>
                 <p className="paragraph w-60 place-self-center text-second-text-color">We focus on ergonomics and meeting
                     you where you work. It's only a
