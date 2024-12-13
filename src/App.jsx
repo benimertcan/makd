@@ -7,7 +7,7 @@ import Carousel from './components/Carousel';
 import Products from './components/Products';
 import Furniture from './components/Furniture';
 import Wrapper from './components/Wrapper';
-import BestSeller from './components/BestSellerProducts';
+import BestSeller, { BestSellerMini } from './components/BestSellerProducts';
 import Photo from './components/Photo';
 import MostPopular from './components/MostPopular';
 function App() {
@@ -27,6 +27,15 @@ function App() {
           <Photo source={"/images/photoOne.jpg"}/>
           <MostPopular/>
         </Wrapper>
+        <Wrapper>          
+          <BestSeller />
+          <Furniture source={"/images/donut.jpg"} />
+        </Wrapper>
+        <Wrapper>
+          <MostPopular/>
+          <Photo source={"/images/sandwich.jpg"}/>
+        </Wrapper>
+        <BestSellerMini />
       </Layout>
     </>
   )
