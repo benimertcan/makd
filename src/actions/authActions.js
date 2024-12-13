@@ -1,6 +1,8 @@
 
+
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+
 
 export const login = (data) => {
   return async (dispatch) => {
@@ -32,3 +34,4 @@ export const logOut = () => {
     }
   };
 }
+
