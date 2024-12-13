@@ -2,7 +2,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import React, { useState } from 'react';
 
 const Carousel = () => {
-    const images = ["public/images/nugget.jpg", "public/images/nugget.jpg", "public/images/nugget.jpg"];
+    const images = ["/images/nugget.jpg", "/images/nugget.jpg", "/images/nugget.jpg"];
 
     const [currentIndex, setCurrentIndex] = useState(0);
 

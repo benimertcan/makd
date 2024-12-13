@@ -13,7 +13,7 @@ function Header() {
         <>
             <header className="flex flex-col my-5 min-w-full">
                 <div className='flex flex-row place-items-center justify-between mx-8'>
-                    <img src="public/images/logo.svg" alt="Logo" />
+                    <img src="/images/logo.svg" alt="Logo" />
                     <div className='flex flex-row gap-3 lg:gap-5 lg:text-primary-blue flex-wrap place-content-end'>
                         <Link to="/signup" className='text-text-transparent flex flex-col lg:flex-col place-items-center text-center place-content-center h6 lg:h5'>
                             <User className='size-8 hover:size-7'  /> 
