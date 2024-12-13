@@ -12,7 +12,7 @@ import BestSeller from './components/BestSellerProducts';
 import Photo from './components/Photo';
 import MostPopular from './components/MostPopular';
 import UserForm from "./components/UserForm";
-import Header from "./components/Header";
+import LoginForm from "./components/LoginForm";
 
 function App() {
   return (
@@ -35,6 +35,7 @@ function App() {
             </Layout>
           )} />
           <Route path="/signup" component={UserForm} />
+          <Route path="/login" component={LoginForm} />
           {/* Add other routes here */}
         </Switch>
       </Router>
