@@ -10,6 +10,7 @@ import Wrapper from './components/Wrapper';
 import BestSeller, { BestSellerMini } from './components/BestSellerProducts';
 import Photo from './components/Photo';
 import MostPopular from './components/MostPopular';
+import Brands from './components/Brands';
 function App() {
 
 
@@ -36,6 +37,7 @@ function App() {
           <Photo source={"/images/sandwich.jpg"}/>
         </Wrapper>
         <BestSellerMini />
+        <Brands/>
       </Layout>
     </>
   )
