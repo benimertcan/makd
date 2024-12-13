@@ -68,34 +68,34 @@ const UserForm = () => {
         
       
         <div className='flex flex-col gap-2'>
-          <label className='h5'>Name *</label>
+          <label className='h5 md:text-xl'>Name *</label>
           <input {...register('name', { required: true, minLength: 3 })} className='text-text-dark bg-bg-input paragraph rounded-sm p-2 border-[#D9D9D9] border-[1px] ml-2' placeholder='Full Name *' />
           {errors?.name && <Warning>Name is required and must be at least 3 characters.</Warning>}
         </div>
   
         <div className='flex flex-col gap-2'>
-        <label className='h5'>Email Adress *</label>
+        <label className='h5 md:text-xl'>Email Adress *</label>
           <input {...register('email', { required: true, pattern: /^\S+@\S+$/i })} className='text-text-dark bg-bg-input paragraph rounded-sm p-2 border-[#D9D9D9] border-[1px] ml-2' placeholder='example@gmail.com'/>
           {errors?.email && <Warning>Email is required and must be valid.</Warning> }
         </div>
   
         <div className='flex flex-col gap-2'>
-          <label className='h5'>Password *</label>
+          <label className='h5 md:text-xl'>Password *</label>
           <input type="password" {...register('password', { required: true, minLength: 8, pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/ })} className='text-text-dark bg-bg-input paragraph rounded-sm p-2 border-[#D9D9D9] border-[1px] ml-2' placeholder='********' />
           {errors?.password && <Warning>Password must be at least 8 characters, including numbers, upper and lower case letters, and special characters.</Warning>}
         </div>
   
         <div className='flex flex-col gap-2'>
-          <label className='h5'>Confirm Password *</label>
+          <label className='h5 md:text-xl'>Confirm Password *</label>
           <input type="password" {...register('confirmPassword', { validate: value => value === watch('password') || "Passwords do not match" })} className='text-text-dark bg-bg-input paragraph rounded-sm p-2 border-[#D9D9D9] border-[1px] ml-2' placeholder='********' />
-          {errors?.confirmPassword && <span>{errors.confirmPassword?.message}</span>}
+          {errors?.confirmPassword && <Warning>{errors.confirmPassword?.message}</Warning>}
         </div>
   
         <div className='flex flex-col gap-2'>
-          <label className='h5'>Role *</label>
+          <label className='h5 md:text-xl'>Role *</label>
           <select {...register('role_id')} className='text-text-light bg-primary-blue rounded-md paragraph  p-2 border-[#D9D9D9] border-[1px] ml-2' >
             {roles?.map(role => (
-              <option key={role.id} value={role.code}>{role.name}</option>
+              <option key={role.id} value={role.code} className='bg-text-light text-text-dark'>{role.name}</option>
             ))}
           </select>
         </div>
@@ -103,25 +103,25 @@ const UserForm = () => {
         {isStore && (
           <>
            <div className='flex flex-col gap-2'>
-              <label className='h5'>Store Name *</label>
+              <label className='h5 md:text-xl'>Store Name *</label>
               <input {...register('storeName', { required: true, minLength: 3 })} className='text-text-dark bg-bg-input paragraph rounded-sm p-2 border-[#D9D9D9] border-[1px] ml-2' placeholder='Store Full Name *'/>
               {errors?.storeName && <Warning>Store Name is required and must be at least 3 characters.</Warning>}
             </div>
   
             <div className='flex flex-col gap-2'>
-              <label className='h5'>Store Phone *</label>
+              <label className='h5 md:text-xl'>Store Phone *</label>
               <input {...register('storePhone', { required: true })} className='text-text-dark bg-bg-input paragraph rounded-sm p-2 border-[#D9D9D9] border-[1px] ml-2' placeholder='Store Phone *'/>
               {errors?.storePhone && <Warning>Store Phone is required.</Warning>}
             </div>
   
             <div className='flex flex-col gap-2'>
-              <label className='h5'>Store Tax ID *</label>
+              <label className='h5 md:text-xl'>Store Tax ID *</label>
               <input {...register('storeTaxID', { required: true })} className='text-text-dark bg-bg-input paragraph rounded-sm p-2 border-[#D9D9D9] border-[1px] ml-2' placeholder='Store Tax ID *'/>
               {errors?.storeTaxID && <Warning>Store Tax ID is required.</Warning>}
             </div>
   
             <div className='flex flex-col gap-2'>
-              <label className='h5'>Store Bank Account *</label>
+              <label className='h5 md:text-xl'>Store Bank Account *</label>
               <input {...register('storeBankAccount', { required: true })} className='text-text-dark bg-bg-input paragraph rounded-sm p-2 border-[#D9D9D9] border-[1px] ml-2' placeholder='Store Bank Account *'/>
               {errors?.storeBankAccount && <Warning>Store Bank Account is required.</Warning>}
             </div>
