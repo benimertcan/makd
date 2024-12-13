@@ -1,6 +1,7 @@
 import { ToastContainer } from 'react-toastify';
 import './App.css'
 import 'react-toastify/dist/ReactToastify.css';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Layout from './components/Layout';
 import Carousel from './components/Carousel';
 import Products from './components/Products';
@@ -12,12 +13,17 @@ import MostPopular from './components/MostPopular';
 import Brands from './components/Brands';
 import FeaturedProducts from './components/FeaturedProducts';
 import Things from './components/Things';
+import UserForm from './components/UserForm';
+import LoginForm from './components/LoginForm';
 function App() {
 
 
   return (
     <>
+    <Router>
       <ToastContainer />
+      <Switch>
+          <Route path="/" exact render={() => (
       <Layout>
         <Carousel />
         <Products />
@@ -42,6 +48,12 @@ function App() {
         <Brands/>
         <FeaturedProducts/>
       </Layout>
+       )} />
+       <Route path="/signup" component={UserForm} />
+       <Route path="/login" component={LoginForm} />
+       {/* Add other routes here */}
+     </Switch>
+   </Router>
     </>
   )
 }
