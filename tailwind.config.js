@@ -14,6 +14,7 @@ export default {
       'primary-blue':'#23A6F0',
       'background-light':'#FAFAFA',
       'second-text-color':'#737373',
+      'bg-input':'#F9F9F9',
     },
     extend: {},
   },

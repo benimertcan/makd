@@ -1,5 +1,8 @@
-// actions/authActions.js
+
+
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+
 
 export const login = (data) => {
   return async (dispatch) => {
@@ -13,8 +16,22 @@ export const login = (data) => {
       }
     } catch (error) {
       const errorMessage = error.response?.data || 'An error occurred';
-      dispatch({ type: 'LOGIN_FAILURE', payload: errorMessage });
-      throw new Error(errorMessage);
+      dispatch({ type: 'LOGIN_FAILURE', payload: errorMessage.message });
+      throw new Error(errorMessage.message);
     }
   };
 };
+export const logOut = () => {
+  return (dispatch) => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    localStorage.removeItem('mail');    
+    dispatch({ type: 'LOGOUT' });
+    const history = useHistory();
+    history.goBack(); 
+    if (history.length === 1) {
+      history.push('/');
+    }
+  };
+}
+

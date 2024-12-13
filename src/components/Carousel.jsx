@@ -2,7 +2,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import React, { useState } from 'react';
 
 const Carousel = () => {
-    const images = ["public/images/nugget.jpg", "public/images/nugget.jpg", "public/images/nugget.jpg"];
+    const images = ["/images/nugget.jpg", "/images/nugget.jpg", "/images/nugget.jpg"];
 
     const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -27,7 +27,7 @@ const Carousel = () => {
                             <div className='flex flex-col  gap-5 text-center p-10'>
                                 <h2 className="h2">GROCERIES DELIVERY</h2>
                                 <h4 className="h4">We know how large objects is will act but things on a small scale just do not act that way.</h4>
-                                <button className='bg-primary-blue w-40 h-10 rounded-sm self-center text-2xl font-bold	'>Start Now</button>
+                                <button className='bg-primary-blue w-40 h-12 rounded-md self-center text-2xl font-bold	'>Start Now</button>
                             </div>
                         </div>
                     </div>
