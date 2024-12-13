@@ -18,7 +18,6 @@ const LoginForm = () => {
     try {
       const response = await dispatch(login(data));
       if (response.token) {
-        console.log(response);
         const { token , name ,email} = response;
         if (data.rememberMe) {
           localStorage.setItem('token', token);
@@ -53,7 +52,7 @@ const LoginForm = () => {
           <label className='h5 md:text-xl'>Remember Me</label>
         <input type="checkbox" {...register('rememberMe')} className='text-primary-blue'/>
       </div>
-      <Link to="/signup" className='text-text-dark'>Don't have an account? <span className='text-primary-blue'>Signup</span></Link>
+      <Link to="/signup" className='text-text-dark'>Don't have an account? <span className='text-primary-blue'>Sign Up</span></Link>
       <button type="submit" className='bg-primary-blue w-32 h-10 rounded-md self-center lg:w-40 lg:h-12 lg:text-2xl text-md font-bold text-text-light place-items-center'>Login</button>
     </form>
     </section>

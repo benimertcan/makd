@@ -1,5 +1,6 @@
 
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 export const login = (data) => {
   return async (dispatch) => {
@@ -18,3 +19,16 @@ export const login = (data) => {
     }
   };
 };
+export const logOut = () => {
+  return (dispatch) => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    localStorage.removeItem('mail');    
+    dispatch({ type: 'LOGOUT' });
+    const history = useHistory();
+    history.goBack(); 
+    if (history.length === 1) {
+      history.push('/');
+    }
+  };
+}

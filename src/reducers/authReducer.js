@@ -10,6 +10,11 @@ const initialState = {
         return { ...state, username: action.payload.name, token: action.payload.token, mail: action.payload.email };
       case 'LOGIN_FAILURE':
         return { ...state, message: action.payload.message };
+        case 'LOGOUT':
+            localStorage.setItem('token', "");
+            localStorage.setItem('username', "");
+            localStorage.setItem('mail', "");
+          return { ...state, username: null, token: null, mail: null };
       default:
         return state;
     }
