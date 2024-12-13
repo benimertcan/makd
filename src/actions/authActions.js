@@ -1,4 +1,4 @@
-// actions/authActions.js
+
 import axios from 'axios';
 
 export const login = (data) => {
@@ -13,8 +13,8 @@ export const login = (data) => {
       }
     } catch (error) {
       const errorMessage = error.response?.data || 'An error occurred';
-      dispatch({ type: 'LOGIN_FAILURE', payload: errorMessage });
-      throw new Error(errorMessage);
+      dispatch({ type: 'LOGIN_FAILURE', payload: errorMessage.message });
+      throw new Error(errorMessage.message);
     }
   };
 };

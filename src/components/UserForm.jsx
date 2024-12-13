@@ -3,6 +3,8 @@ import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import Warning from './Warning';
+import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const UserForm = () => {
     const { register, handleSubmit, watch, setValue, formState: { errors, isSubmitting } } = useForm();
@@ -50,14 +52,14 @@ const UserForm = () => {
         password: data.password,
         role_id: data.role_id
       };
-  
+ 
       try {
         await api.post('/signup', formData);
-        alert("You need to click the link in the email to activate your account!");
+        toast.success("You need to click the link in the email to activate your account!");
         history.goBack();
       } catch (error) {
         console.error('Error during signup:', error);
-        alert('Signup failed. Please check your inputs and try again.');
+        toast.error('Signup failed. Please check your inputs and try again.');
       }
     };
   
@@ -127,9 +129,10 @@ const UserForm = () => {
             </div>
             </>
         )}
-  
+       <Link to="/login" className='text-text-dark'>Already have an account? <span className='text-primary-blue'>Login</span></Link>
         <button type="submit" disabled={isSubmitting} className='bg-primary-blue w-32 h-10 rounded-md self-center lg:w-40 lg:h-12 lg:text-2xl text-md font-bold text-text-light place-items-center'>Sign Up</button>
       </form>
+      
       </section>
     );
   };

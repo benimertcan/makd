@@ -36,11 +36,6 @@ function App() {
           )} />
           <Route path="/signup" component={UserForm} />
           <Route path="/login" component={LoginForm} />
-<<<<<<< HEAD
-          {/* Add other routes here */}
-=======
-          {/* Add other routes here */} 
->>>>>>> origin/benimertcan/issue5
         </Switch>
       </Router>
     </>
