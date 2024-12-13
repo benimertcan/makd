@@ -5,7 +5,7 @@ function Furniture({ source }) {
         <>
             
                 <div
-                    className="flex flex-col w-[19rem] h-[85vh] bg-cover bg-center bg-no-repeat p-3 gap-1 place-self-center"
+                    className="flex flex-col w-80 h-[80vh] bg-cover bg-center bg-no-repeat p-3 gap-1 place-self-center"
                     style={{ backgroundImage: `url(${source})` }}
                 >
                     <h6 className="h6">FURNITURE</h6>
