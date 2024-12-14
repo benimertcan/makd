@@ -59,7 +59,7 @@ export function BestSellerMini() {
     return (
         <>
             <div className="gap-3 my-10 p-5 place-self-center">
-                <div className="flex flex-col gap-5 p-3 justify-center place-content-center content-center text-center place-items-center border-solid border-b-[1px] lg:flex-row lg:justify-between">
+                <div className="flex flex-col gap-5 p-3 justify-center place-content-center content-center text-center place-items-center lg:flex-row lg:justify-between">
                     <h3 className="h3 text-text-dark">BESTSELLER PRODUCTS</h3>
                     
                    

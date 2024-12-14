@@ -60,6 +60,16 @@ function Footer({ children }) {
                             </ul>
                         </div>
                     </div>
+                    <div className="flex flex-col w-full justify-between gap-3 lg:place-self-end ">
+                        <h5 className="h5">Made With Love By Finland</h5>
+                        <h5 className="h5">All Rights Reserved</h5>
+                        <div className="flex flex-row gap-3">
+                            <img src="/svg/facebook.svg" className="size-8"/>
+                            <img src="/svg/instagram.svg" className="size-8"/>
+                            <img src="/svg/twitter.svg" className="size-8"/>
+                            <img src="/svg/youtube.svg" className="size-8"/>
+                        </div>
+                    </div>
                 </div>
             </footer>
         </>
