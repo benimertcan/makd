@@ -16,6 +16,7 @@ export default {
       'second-text-color':'#737373',
       'newRed':'#E74040',
       'disable-element-color':'#8EC2F2',
+      'light-green':'#23856D',
     },
     extend: {},
   },

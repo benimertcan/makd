@@ -15,6 +15,8 @@ import FeaturedProducts from './components/FeaturedProducts';
 import Things from './components/Things';
 import UserForm from './components/UserForm';
 import LoginForm from './components/LoginForm';
+import ShopHeader from './components/shoppage/shopHeader';
+import ShopPage from './components/shoppage/ShopPage';
 function App() {
 
 
@@ -48,6 +50,14 @@ function App() {
         <Brands/>
         <FeaturedProducts/>
       </Layout>
+       )} />
+       <Route path="/shop" exact render={() => (
+        <>
+      <ShopHeader/>
+      <ShopPage>
+        
+      </ShopPage>
+      </>
        )} />
        <Route path="/signup" component={UserForm} />
        <Route path="/login" component={LoginForm} />

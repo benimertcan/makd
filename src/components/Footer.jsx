@@ -12,7 +12,7 @@ function Footer({ children }) {
                             <h2 className="h2">Consulting Agency For Your Business</h2>
                             <h5 className="h5 text-second-text-color">the quick fox jumps over the lazy dog</h5>
                         </div>
-                        <button className='bg-primary-blue w-40 h-10 text-2xl font-bold rounded-md'>Contact Us</button>
+                        <button className='bg-primary-blue text-nowrap w-48 h-10 text-2xl font-bold rounded-md'>Contact Us</button>
                     </div>
                     <div className="flex flex-col w-full justify-between gap-10 md:flex-row">
                         <div>
