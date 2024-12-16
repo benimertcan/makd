@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom';
 
 export const login = (data) => {
   return async (dispatch) => {
+    dispatch({ type: 'LOGIN_REQUEST' });
     try {
       const response = await axios.post('https://workintech-fe-ecommerce.onrender.com/login', data);
       if (response && response.data) {
@@ -22,7 +23,7 @@ export const login = (data) => {
   };
 };
 export const logOut = () => {
-  return (dispatch) => {
+  return async (dispatch) => {
     localStorage.removeItem('token');
     localStorage.removeItem('username');
     localStorage.removeItem('mail');    
