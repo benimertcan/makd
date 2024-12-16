@@ -11,7 +11,7 @@ function ShopPage({children}) {
     return (
         <>
         <>
-            <header className="flex flex-col my-10 min-w-full">
+            <header className="flex flex-col my-10 min-w-full justify-between">
                 <div className='flex flex-row place-items-center justify-between mx-8'>
                     <img src="/images/logo.svg" alt="Logo" />
                     <div className='flex flex-row gap-3 lg:gap-5 lg:text-primary-blue flex-wrap place-content-end'>
@@ -19,14 +19,15 @@ function ShopPage({children}) {
                     </div>
                 </div>
 
-                <div className="flex flex-col gap-5 place-items-center  text-text-transparent my-20 text-center lg:flex-row lg:place-self-center lg:my-0 lg:-mt-7 lg:mr-20 mobile-menu lg:h5 lg:text-second-text-color">
+                <div className="flex min-w-[70vw]  flex-col gap-5 place-items-center justify-evenly  text-text-transparent my-20 text-center lg:flex-row lg:place-self-end lg:my-0 lg:-mt-7 lg:mr-20 mobile-menu lg:h5 lg:text-second-text-color">
+                    <div className='flex flex-col lg:flex-row gap-5'>
                     <Link to="/">Home</Link>
                     <Link to="/shop" className='lg:flex place-self-center place-items-center flex flex-row lg:place-items-end'>Shop <ChevronDown className='hidden lg:block size-5' /></Link>
                     <Link to="/about" className=''>About</Link>
                     <Link to="/block" className=''>Blog</Link>
                     <Link to="/contact">Contact</Link>
                     <Link to="/pages" className=''>Pages</Link>
-
+                    </div>
                     <div className='flex flex-col gap-5  lg:flex-row  text-primary-blue flex-wrap place-content-center'>
                     <Link to="/signup" className='text-text-transparent flex flex-row lg:flex-row place-items-center text-center place-content-center h6 lg:h5'>
                             <User className='size-8 hover:size-7 '   /> 
