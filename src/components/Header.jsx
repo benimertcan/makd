@@ -1,8 +1,6 @@
 import { User, Search, ShoppingCart, Menu, ChevronDown, LogOut, Heart } from 'lucide-react';
 import { Link } from 'react-router-dom'; // Import Link
 import { useDispatch, useSelector } from 'react-redux';
-import Gravatar from 'react-gravatar';
-import LoginForm from './LoginForm';
 import { toast } from 'react-toastify';
 function Header() {
     const dispatch = useDispatch();
@@ -26,7 +24,7 @@ function Header() {
                             toast.success('Successfully logged out.');
                         }}/> : ""}
                         <Search className='size-8 hover:size-7' />
-                        <ShoppingCart className='size-8 hover:size-7' />
+                       <Link to="/shop" > <ShoppingCart className='size-8 hover:size-7' /></Link>
                         <Heart className='size-8 hover:size-7 hidden lg:block'  />
                         <Menu className='size-8 hover:size-7 lg:hidden' />
                     </div>

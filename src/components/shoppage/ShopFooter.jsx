@@ -1,19 +1,21 @@
 import { Phone , Plane, LocateIcon} from "lucide-react"
 
-function Footer({ children }) {
+function ShopFooter() {
 
 
     return (
         <>
-            <footer className="flex  py-16 w-full gap-10 place-content-center bg-bg-dark text-text-light">
+            <footer className="flex  py-16 w-full gap-10 place-content-center bg-text-light text-text-dark">
                 <div className="flex flex-col w-[60%] gap-10 place-items-center ">
-                    <div className="flex flex-col w-full md:flex-row justify-between gap-8">
-                        <div className="flex flex-col gap-4 ">
-                            <h2 className="h2">Consulting Agency For Your Business</h2>
-                            <h5 className="h5 text-second-text-color">the quick fox jumps over the lazy dog</h5>
+                    <div className="flex flex-col md:flex-row w-full justify-between gap-3">
+                        <h3 className="h3">Bandage</h3>
+                    <div className="flex flex-row gap-3">
+                            <img src="/svg/facebook.svg" className="size-8"/>
+                            <img src="/svg/instagram.svg" className="size-8"/>
+                            <img src="/svg/twitter.svg" className="size-8"/>
                         </div>
-                        <button className='bg-primary-blue text-nowrap w-48 h-10 text-2xl font-bold rounded-md'>Contact Us</button>
                     </div>
+             
                     <div className="flex flex-col w-full justify-between gap-10 md:flex-row">
                         <div>
                             <h5 className="h5 pb-5">Company Info</h5>
@@ -53,22 +55,13 @@ function Footer({ children }) {
                         </div>
                         <div>
                             <h5 className="h5 pb-5">Get In Touch</h5>
-                            <ul className="flex flex-col gap-2 paragraph font-bold">
-                                <li className="flex flex-row gap-1"><Phone className="text-disable-element-color"/>(480)-555-0103</li>
-                                <li className="flex flex-row gap-1"><LocateIcon className="text-disable-element-color" />4517 Washington Ave.</li>
-                                <li className="flex flex-row gap-1"><Plane  className="text-disable-element-color"/>debra.holt@example.com</li>
-                            </ul>
+                           <input type="email" placeholder="Your Email" className="bg-transparent h-7  border-text-dark rounded-md p-2  text-text-dark placeholder:text-text-dark" />
+                            <button className='bg-primary-blue text-nowrap w-28 h-7  text-text-light font-bold '>Subscribe</button>
                         </div>
                     </div>
-                    <div className="flex flex-col w-full justify-between gap-3 lg:place-self-end ">
-                        <h5 className="h5">Made With Love By Finland</h5>
-                        <h5 className="h5">All Rights Reserved</h5>
-                        <div className="flex flex-row gap-3">
-                            <img src="/svg/facebook.svg" className="size-8"/>
-                            <img src="/svg/instagram.svg" className="size-8"/>
-                            <img src="/svg/twitter.svg" className="size-8"/>
-                            <img src="/svg/youtube.svg" className="size-8"/>
-                        </div>
+                    <div className="flex text-center flex-col w-full  gap-3 lg:place-self-start lg:flex-row ">
+                        <h5 className="h5 font-normal">Made With Love By Finland</h5>
+                        <h5 className="h5 font-normal">All Rights Reserved</h5>
                     </div>
                 </div>
             </footer>
@@ -76,4 +69,4 @@ function Footer({ children }) {
     )
 }
 
-export default Footer
+export default ShopFooter
