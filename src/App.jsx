@@ -17,7 +17,8 @@ import UserForm from './components/UserForm';
 import LoginForm from './components/LoginForm';
 import ShopHeader from './components/shoppage/shopHeader';
 import ShopPage from './components/shoppage/ShopPage';
-import Shop from './components/Shop';
+import Shop from './components/shoppage/Shop';
+import ShopProducts from './components/shoppage/ShopProducts';
 function App() {
 
 
@@ -57,6 +58,7 @@ function App() {
       <ShopHeader/>
       <ShopPage>
         <Shop/>
+        <ShopProducts/>
       </ShopPage>
       </>
        )} />

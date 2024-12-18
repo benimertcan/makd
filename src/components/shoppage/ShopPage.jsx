@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import Footer from '../Footer';
+import ShopFooter from './ShopFooter';
 function ShopPage({children}) {
     const dispatch = useDispatch();
     const username = useSelector((store) => {
@@ -46,7 +47,7 @@ function ShopPage({children}) {
                 </div>
             </header>
             <>{children}</>
-            <Footer/>
+            <ShopFooter/>
             </>
         </>
     );

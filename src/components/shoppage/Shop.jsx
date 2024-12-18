@@ -1,10 +1,11 @@
 import { ChevronRight } from "lucide-react";
+import ShopTags from "./ShopTags";
 
 
 
 
 const Shop = () => {
-
+const shopImages= ["/images/shopBackgroundOne.jpg", "/images/shopBackgroundTwo.jpg", "/images/shopBackgroundThree.jpg","/images/shopBackgroundFour.jpg","/images/shopBackgroundFive.jpg"]
 
     return (
         <>
@@ -16,6 +17,16 @@ const Shop = () => {
                     <ChevronRight className="size-5 text-second-text-color"/>
                     <h6 className="h6 text-second-text-color">Shop</h6>
                 </div>
+              </div>
+              <div className="flex flex-col lg:flex-row gap-5">
+                {
+                  shopImages.map((image, index) => {
+                    return (
+                      <ShopTags key={index} image={image} />
+                    )
+                  }
+                    )
+                }
               </div>
             </section>
         </>
