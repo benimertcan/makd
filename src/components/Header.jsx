@@ -117,40 +117,40 @@ function Header() {
                 {showMobileMenu && (
                     <div 
                         ref={mobileMenuRef}
-                        className="lg:hidden absolute top-full left-0 right-0 bg-white shadow-lg py-4 z-50"
+                        className="lg:hidden absolute top-full left-0 right-0 bg-primary-blue text-text-light rounded-md shadow-lg py-4 z-50"
                     >
                         <div className="flex flex-col gap-4 px-4">
                             <Link 
                                 to="/" 
-                                className="text-text-transparent hover:text-primary-blue transition-colors"
+                                className="text-text-transparent hover:text-text-dark transition-colors"
                                 onClick={() => setShowMobileMenu(false)}
                             >
                                 Home
                             </Link>
                             <Link 
                                 to="/shop" 
-                                className="text-text-transparent hover:text-primary-blue transition-colors"
+                                className="text-text-transparent hover:text-text-dark transition-colors"
                                 onClick={() => setShowMobileMenu(false)}
                             >
                                 Shop
                             </Link>
                             <Link 
                                 to="/product" 
-                                className="text-text-transparent hover:text-primary-blue transition-colors"
+                                className="text-text-transparent hover:text-text-dark transition-colors"
                                 onClick={() => setShowMobileMenu(false)}
                             >
                                 Product
                             </Link>
                             <Link 
                                 to="/pricing" 
-                                className="text-text-transparent hover:text-primary-blue transition-colors"
+                                className="text-text-transparent hover:text-text-dark transition-colors"
                                 onClick={() => setShowMobileMenu(false)}
                             >
                                 Pricing
                             </Link>
                             <Link 
                                 to="/contact" 
-                                className="text-text-transparent hover:text-primary-blue transition-colors"
+                                className="text-text-transparent hover:text-text-dark transition-colors"
                                 onClick={() => setShowMobileMenu(false)}
                             >
                                 Contact
