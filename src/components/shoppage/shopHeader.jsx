@@ -1,10 +1,6 @@
 import { Mail, Phone } from "lucide-react";
 
-
-
 const ShopHeader = () => {
-
-
     return (
         <>
             <section className={`w-full h-10  hidden lg:block `}>

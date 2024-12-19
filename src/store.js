@@ -6,13 +6,15 @@ import authReducer from './reducers/authReducer';
 import clientReducer from './reducers/clientReducer';
 import productReducer from './reducers/productReducer';
 import cartReducer from './reducers/cartReducer';
+import categoryReducer from './reducers/categoryReducer';
 
 const store = configureStore({
   reducer: {
     auth: authReducer,
     client: clientReducer,
     product: productReducer,
-    cart: cartReducer
+    cart: cartReducer,
+    category: categoryReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(thunk, logger)
