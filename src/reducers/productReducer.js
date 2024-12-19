@@ -1,55 +1,58 @@
-import * as types from '../actions/actionTypes';
+import {
+    FETCH_PRODUCTS_START,
+    FETCH_PRODUCTS_SUCCESS,
+    FETCH_PRODUCTS_ERROR,
+    FETCH_PRODUCT_BY_ID_START,
+    FETCH_PRODUCT_BY_ID_SUCCESS,
+    FETCH_PRODUCT_BY_ID_ERROR
+} from '../actions/productActions';
 
 const initialState = {
-  categories: [],
-  productList: [],
-  total: 0,
-  limit: 25,
-  offset: 0,
-  filter: '',
-  fetchState: 'NOT_FETCHED' // one of "NOT_FETCHED", "FETCHING", "FETCHED", "FAILED"
+    products: [],
+    total: 0,
+    currentProduct: null,
+    isLoading: false,
+    error: null
 };
 
 const productReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case types.SET_CATEGORIES:
-      return {
-        ...state,
-        categories: action.payload
-      };
-    case types.SET_PRODUCT_LIST:
-      return {
-        ...state,
-        productList: action.payload
-      };
-    case types.SET_TOTAL:
-      return {
-        ...state,
-        total: action.payload
-      };
-    case types.SET_FETCH_STATE:
-      return {
-        ...state,
-        fetchState: action.payload
-      };
-    case types.SET_LIMIT:
-      return {
-        ...state,
-        limit: action.payload
-      };
-    case types.SET_OFFSET:
-      return {
-        ...state,
-        offset: action.payload
-      };
-    case types.SET_FILTER:
-      return {
-        ...state,
-        filter: action.payload
-      };
-    default:
-      return state;
-  }
+    switch (action.type) {
+        case FETCH_PRODUCTS_START:
+        case FETCH_PRODUCT_BY_ID_START:
+            return {
+                ...state,
+                isLoading: true,
+                error: null
+            };
+
+        case FETCH_PRODUCTS_SUCCESS:
+            return {
+                ...state,
+                isLoading: false,
+                products: action.payload.products,
+                total: action.payload.total,
+                error: null
+            };
+
+        case FETCH_PRODUCT_BY_ID_SUCCESS:
+            return {
+                ...state,
+                isLoading: false,
+                currentProduct: action.payload,
+                error: null
+            };
+
+        case FETCH_PRODUCTS_ERROR:
+        case FETCH_PRODUCT_BY_ID_ERROR:
+            return {
+                ...state,
+                isLoading: false,
+                error: action.payload
+            };
+
+        default:
+            return state;
+    }
 };
 
 export default productReducer;

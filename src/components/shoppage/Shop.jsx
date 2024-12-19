@@ -1,9 +1,14 @@
 import { ChevronRight } from "lucide-react";
+import { useSelector } from "react-redux";
 import ShopTags from "./ShopTags";
 import ShopProducts from "./ShopProducts";
 
 const Shop = () => {
-    const shopImages = ["/images/shopBackgroundOne.jpg", "/images/shopBackgroundTwo.jpg", "/images/shopBackgroundThree.jpg","/images/shopBackgroundFour.jpg","/images/shopBackgroundFive.jpg"];
+    const { categories } = useSelector((store) => store.category);
+    
+    const topCategories = [...categories]
+        .sort((a, b) => b.rating - a.rating)
+        .slice(0, 5);
 
     return (
         <div className="w-full">
@@ -17,8 +22,8 @@ const Shop = () => {
                     </div>
                 </div>
                 <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-5 place-items-center">
-                    {shopImages.map((image, index) => (
-                        <ShopTags key={index} image={image} />
+                    {topCategories.map((category) => (
+                        <ShopTags key={category.id} category={category} />
                     ))}
                 </div>
                 <ShopProducts />

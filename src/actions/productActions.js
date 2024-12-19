@@ -36,6 +36,14 @@ export const setFilter = (filter) => ({
   payload: filter
 });
 
+// Action Types
+export const FETCH_PRODUCTS_START = "FETCH_PRODUCTS_START";
+export const FETCH_PRODUCTS_SUCCESS = "FETCH_PRODUCTS_SUCCESS";
+export const FETCH_PRODUCTS_ERROR = "FETCH_PRODUCTS_ERROR";
+export const FETCH_PRODUCT_BY_ID_START = "FETCH_PRODUCT_BY_ID_START";
+export const FETCH_PRODUCT_BY_ID_SUCCESS = "FETCH_PRODUCT_BY_ID_SUCCESS";
+export const FETCH_PRODUCT_BY_ID_ERROR = "FETCH_PRODUCT_BY_ID_ERROR";
+
 // Thunk to fetch products with pagination and filtering
 export const fetchProducts = () => async (dispatch, getState) => {
   const state = getState();
@@ -61,6 +69,45 @@ export const fetchProducts = () => async (dispatch, getState) => {
   } catch (error) {
     console.error('Error fetching products:', error);
     dispatch(setFetchState('FAILED'));
+  }
+};
+
+// Thunk Action Creator for fetching all products
+export const fetchProductsThunk = () => async (dispatch) => {
+  dispatch({ type: FETCH_PRODUCTS_START });
+  
+  try {
+    const response = await axios.get('https://workintech-fe-ecommerce.onrender.com/products');
+    dispatch({ 
+      type: FETCH_PRODUCTS_SUCCESS, 
+      payload: {
+        products: response.data.products,
+        total: response.data.total
+      }
+    });
+  } catch (error) {
+    dispatch({ 
+      type: FETCH_PRODUCTS_ERROR, 
+      payload: error.message 
+    });
+  }
+};
+
+// Thunk Action Creator for fetching a single product by ID
+export const fetchProductById = (id) => async (dispatch) => {
+  dispatch({ type: FETCH_PRODUCT_BY_ID_START });
+  
+  try {
+    const response = await axios.get(`https://workintech-fe-ecommerce.onrender.com/products/${id}`);
+    dispatch({ 
+      type: FETCH_PRODUCT_BY_ID_SUCCESS, 
+      payload: response.data 
+    });
+  } catch (error) {
+    dispatch({ 
+      type: FETCH_PRODUCT_BY_ID_ERROR, 
+      payload: error.message 
+    });
   }
 };
 

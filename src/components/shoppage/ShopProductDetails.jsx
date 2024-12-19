@@ -1,104 +1,123 @@
-import { ChevronRight, EyeIcon, Heart, ShoppingCart, Star } from "lucide-react";
-import { ShopCarousel } from "../Carousel";
-import { BestSellerMini } from "../BestSellerProducts";
-import Brands from "../Brands";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProductById } from "../../actions/productActions";
+import { ChevronRight, Heart, Loader2, Star } from "lucide-react";
 import { Link } from "react-router-dom";
+import Brands from "../Brands";
 
 const ShopProductDetails = () => {
+    const { id } = useParams();
+    const dispatch = useDispatch();
+    const { currentProduct, isLoading, error } = useSelector((store) => store.product);
+    const [selectedImage, setSelectedImage] = useState(0);
+
+    useEffect(() => {
+        if (id) {
+            dispatch(fetchProductById(id));
+        }
+    }, [dispatch, id]);
+
+    if (isLoading) {
+        return (
+            <div className="flex justify-center items-center min-h-[400px]">
+                <Loader2 className="size-12 animate-spin text-primary-blue" />
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className="flex justify-center items-center min-h-[400px]">
+                <p className="text-red-500">Error: {error}</p>
+            </div>
+        );
+    }
+
+    if (!currentProduct) {
+        return (
+            <div className="flex justify-center items-center min-h-[400px]">
+                <p>Product not found</p>
+            </div>
+        );
+    }
+
+    const { name, description, price, stock, rating, sell_count, images = [] } = currentProduct;
+
     return (
-        <div className="flex flex-col w-full max-w-[1200px] mx-auto px-4">
-            <Link
-                to="/shop"
-                className="self-start mb-4 text-primary-blue hover:underline flex items-center gap-2 no-underline"
-            >
-                <ChevronRight className="rotate-180" />
-                Back to Products
-            </Link>
+        <div className="flex flex-col gap-5">
+            {/* Breadcrumb */}
+            <div className="flex flex-row gap-2 place-items-center mx-8">
+                <Link to="/" className="h6">Home</Link>
+                <ChevronRight className="size-5 text-second-text-color" />
+                <Link to="/shop" className="h6">Shop</Link>
+                <ChevronRight className="size-5 text-second-text-color" />
+                <h6 className="h6 text-second-text-color">{name}</h6>
+            </div>
 
-            {/* Product Main Info Section */}
-            <div className="flex flex-col lg:flex-row gap-8 mb-12">
-                <div className="lg:w-1/2">
-                    {typeof window !== "undefined" && window.document && window.document.createElement ? (
-                        <ShopCarousel />
-                    ) : (
-                        <></>
-                    )}
-                </div>
-
-                <div className="lg:w-1/2 flex flex-col gap-6">
-                    <h6 className="h6 text-text-dark">Graphic Design</h6>
-                    <div className="flex flex-row gap-2 place-items-center">
-                        {[...Array(3)].map((_, i) => (
-                            <Star key={i} className="size-4 fill-star-yellow" />
+            {/* Product Details */}
+            <div className="flex flex-col lg:flex-row gap-8 mx-8">
+                {/* Image Gallery */}
+                <div className="flex flex-col gap-4 lg:w-1/2">
+                    <div className="aspect-square overflow-hidden rounded-lg">
+                        <img
+                            src={images[selectedImage]?.url || "/images/product-placeholder.jpg"}
+                            alt={name}
+                            className="w-full h-full object-cover"
+                        />
+                    </div>
+                    <div className="flex gap-4 overflow-x-auto">
+                        {images.map((image, index) => (
+                            <button
+                                key={index}
+                                onClick={() => setSelectedImage(index)}
+                                className={`w-24 h-24 flex-shrink-0 rounded-lg overflow-hidden border-2 ${
+                                    selectedImage === index ? 'border-primary-blue' : 'border-transparent'
+                                }`}
+                            >
+                                <img
+                                    src={image.url}
+                                    alt={`${name} - view ${index + 1}`}
+                                    className="w-full h-full object-cover"
+                                />
+                            </button>
                         ))}
-                        <h6 className="h6 text-second-text-color">10 Reviews</h6>
-                    </div>
-                    <h4 className="h4 font-bold">$1,119.33</h4>
-                    <h6 className="h6 text-second-text-color">Availabilitiy :<span className="text-primary-blue"> In Stock</span></h6>
-                    <p className="paragraph text-second-text-color font-medium border-b-[1px] border-second-text-color border-opacity-50 pb-4">
-                        Met minim Mollie non desert Alamo est sit cliquey dolor do met sent. RELIT official consequent door ENIM RELIT Mollie. Excitation venial consequent sent nostrum met.
-                    </p>
-                    <div className="flex flex-row gap-2">
-                        <div className="bg-[#23A6F0] size-5 rounded-full" />
-                        <div className="bg-[#23856D] size-5 rounded-full" />
-                        <div className="bg-[#E77C40] size-5 rounded-full" />
-                        <div className="bg-[#252B42] size-5 rounded-full" />
-                    </div>
-                    <div className="flex flex-row gap-4">
-                        <button className="bg-primary-blue w-36 lg:w-40 h-10 rounded-md self-center text-md font-bold text-text-light">Select Options</button>
-                        <Heart className="cursor-pointer hover:text-primary-blue" />
-                        <ShoppingCart className="cursor-pointer hover:text-primary-blue" />
-                        <EyeIcon className="cursor-pointer hover:text-primary-blue" />
                     </div>
                 </div>
-            </div>
 
-            {/* Product Details Section */}
-            <div className="w-full">
-                <div className="flex flex-row gap-6 py-3 border-b border-second-text-color/20 mb-8">
-                    <a className="small text-second-text-color font-medium border-b-2 border-primary-blue cursor-pointer">Description</a>
-                    <a className="small text-second-text-color cursor-pointer hover:border-b-2 hover:border-primary-blue">Additional Information</a>
-                    <a className="small text-second-text-color cursor-pointer hover:border-b-2 hover:border-primary-blue">Reviews <span className="text-text-price">(0)</span></a>
-                </div>
-
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
-                    <div className="col-span-1">
-                        <img className="w-full h-auto max-w-md mx-auto" src="/images/productDetailBackground.jpg" alt="Product detail" />
+                {/* Product Info */}
+                <div className="flex flex-col gap-4 lg:w-1/2">
+                    <h2 className="h2">{name}</h2>
+                    <div className="flex items-center gap-4">
+                        <div className="flex items-center">
+                            <Star className="size-5 fill-yellow-400 text-yellow-400" />
+                            <span className="ml-1">{rating.toFixed(1)}</span>
+                        </div>
+                        <span className="text-gray-600">|</span>
+                        <span className="text-gray-600">{sell_count} sold</span>
                     </div>
+                    <p className="text-xl font-bold text-primary-blue">${price}</p>
+                    <p className="text-gray-600">{description}</p>
                     
-                    <div className="col-span-1">
-                        <h3 className="h3 mb-4">the quick fox jumps over</h3>
-                        <div className="flex flex-col gap-4">
-                            <p className="paragraph text-second-text-color">Met minim Mollie non desert Alamo est sit cliquey dolor do met sent. RELIT official consequent door ENIM RELIT Mollie. Excitation venial consequent sent nostrum met.</p>
-                            <p className="paragraph text-second-text-color">Met minim Mollie non desert Alamo est sit cliquey dolor do met sent. RELIT official consequent door ENIM RELIT Mollie. Excitation venial consequent sent nostrum met.</p>
-                            <p className="paragraph text-second-text-color">Met minim Mollie non desert Alamo est sit cliquey dolor do met sent. RELIT official consequent door ENIM RELIT Mollie. Excitation venial consequent sent nostrum met.</p>
-                        </div>
+                    {/* Stock Status */}
+                    <div className="flex items-center gap-2">
+                        <span className={`font-semibold ${stock > 50 ? 'text-green-500' : 'text-red-500'}`}>
+                            {stock > 50 ? 'In Stock' : `Low Stock (${stock} left)`}
+                        </span>
                     </div>
 
-                    <div className="col-span-1">
-                        <h3 className="h3 mb-4">the quick fox jumps over</h3>
-                        <div className="flex flex-col gap-2">
-                            {[1, 2, 3, 4, 5].map((_, index) => (
-                                <a key={index} className="paragraph text-second-text-color flex items-center gap-2 hover:text-primary-blue">
-                                    <ChevronRight className="size-4" />
-                                    the quick fox jumps over the lazy dog
-                                </a>
-                            ))}
-                        </div>
-                        <h3 className="h3 mb-4">the quick fox jumps over</h3>
-                        <div className="flex flex-col gap-2">
-                            {[1, 2, 3].map((_, index) => (
-                                <a key={index} className="paragraph text-second-text-color flex items-center gap-2 hover:text-primary-blue">
-                                    <ChevronRight className="size-4" />
-                                    the quick fox jumps over the lazy dog
-                                </a>
-                            ))}
-                        </div>
+                    {/* Actions */}
+                    <div className="flex gap-4 mt-4">
+                        <button className="bg-primary-blue text-white px-8 py-3 rounded-md hover:bg-blue-600 transition-colors">
+                            Add to Cart
+                        </button>
+                        <button className="border border-gray-300 p-3 rounded-md hover:bg-gray-100 transition-colors">
+                            <Heart className="size-6" />
+                        </button>
                     </div>
                 </div>
             </div>
 
-            <BestSellerMini />
             <Brands />
         </div>
     );
