@@ -3,7 +3,14 @@ import ShopProduct from "./ShopProduct";
 import Brands from "../Brands";
 
 const ShopProducts = () => {
-
+    const products = [
+        { id: "1", title: "Product 1" },
+        { id: "2", title: "Product 2" },
+        { id: "3", title: "Product 3" },
+        { id: "4", title: "Product 4" },
+        { id: "5", title: "Product 5" },
+        { id: "6", title: "Product 6" },
+    ];
 
     return (
         <div className="flex flex-col place-items-center gap-5">
@@ -20,12 +27,14 @@ const ShopProducts = () => {
                     </select>
                     <button
                         type="submit"
-                        className={`bg-primary-blue w-28 h-10 rounded-md self-center lg:w-32 lg:h-12 lg:text-2xl text-md font-bold text-text-light place-items-center '`}
+                        className={`bg-primary-blue w-28 h-10 rounded-md self-center lg:w-32 lg:h-12 lg:text-2xl text-md font-bold text-text-light place-items-center `}
                     >Filter</button>
                 </div>
             </div>
-            <div className="flex flex-col place-items-center gap-5">
-                <ShopProduct />
+            <div className="flex flex-col place-items-center lg:flex-row lg:flex-wrap  gap-5">
+                {products.map((product) => (
+                    <ShopProduct key={product.id} id={product.id} />
+                ))}
             </div>
             <div className="flex flex-row">
                 <table className="">

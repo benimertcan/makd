@@ -55,7 +55,7 @@ function ShopFooter() {
                         </div>
                         <div>
                             <h5 className="h5 pb-5">Get In Touch</h5>
-                           <input type="email" placeholder="Your Email" className="bg-transparent h-7  border-text-dark rounded-md p-2  text-text-dark placeholder:text-text-dark" />
+                           <input type="email" placeholder="Your Email" className="bg-transparent h-7  w-32 border-text-dark  p-2  text-text-dark placeholder:text-text-dark" />
                             <button className='bg-primary-blue text-nowrap w-28 h-7  text-text-light font-bold '>Subscribe</button>
                         </div>
                     </div>

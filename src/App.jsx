@@ -19,8 +19,8 @@ import ShopHeader from './components/shoppage/shopHeader';
 import ShopPage from './components/shoppage/ShopPage';
 import Shop from './components/shoppage/Shop';
 import ShopProducts from './components/shoppage/ShopProducts';
+import ShopProductDetails from './components/shoppage/ShopProductDetails';
 function App() {
-
 
   return (
     <>
@@ -53,13 +53,10 @@ function App() {
         <FeaturedProducts/>
       </Layout>
        )} />
-       <Route path="/shop" exact render={() => (
+       <Route path="/shop" render={() => (
         <>
       <ShopHeader/>
-      <ShopPage>
-        <Shop/>
-        <ShopProducts/>
-      </ShopPage>
+      <ShopPage />
       </>
        )} />
        <Route path="/signup" component={UserForm} />

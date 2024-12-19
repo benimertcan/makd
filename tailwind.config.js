@@ -17,6 +17,7 @@ export default {
       'newRed':'#E74040',
       'disable-element-color':'#8EC2F2',
       'light-green':'#23856D',
+      'star-yellow':'#F3CD03',
     },
     extend: {},
   },
