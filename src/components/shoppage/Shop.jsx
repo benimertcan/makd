@@ -21,7 +21,7 @@ const Shop = () => {
                         <h6 className="h6 text-second-text-color">Shop</h6>
                     </div>
                 </div>
-                <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-5 place-items-center">
+                <div className=" grid grid-cols-1  lg:grid-cols-5 gap-5 place-items-center">
                     {topCategories.map((category) => (
                         <ShopTags key={category.id} category={category} />
                     ))}

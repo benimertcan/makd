@@ -69,7 +69,7 @@ function Header() {
                             <div className="absolute left-1/2 transform -translate-x-1/2 mt-2 w-48 bg-primary-blue text-text-light shadow-lg rounded-md py-2 z-50">
                                 <Link
                                     to="/shop"
-                                    className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
+                                    className="block px-4 py-2 text-gray-700 hover:bg-text-dark hover:bg-gray-100 h4"
                                     onClick={() => setShowDropdown(false)}
                                 >
                                     All Products
@@ -79,7 +79,7 @@ function Header() {
                                     <Link
                                         key={category.id}
                                         to={`/shop/${category.gender}/${category.title.toLowerCase()}`}
-                                        className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
+                                        className="block px-3 hover:bg-text-dark py-2 text-gray-700 hover:bg-gray-100 h6"
                                         onClick={() => setShowDropdown(false)}
                                     >
                                         {category.title}
