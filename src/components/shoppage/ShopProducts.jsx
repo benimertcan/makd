@@ -13,8 +13,8 @@ const ShopProducts = () => {
     ];
 
     return (
-        <div className="flex flex-col place-items-center gap-5">
-            <div className="flex flex-col place-items-center gap-4">
+        <div className="flex flex-col place-items-center gap-5 place-self-center">
+            <div className="flex flex-col place-items-center gap-4 lg:flex-row justify-between w-full">
                 <h6>Showing all 12 results</h6>
                 <div className="flex flex-row gap-3 place-items-center">
                     <h6>Views: </h6>
@@ -31,7 +31,7 @@ const ShopProducts = () => {
                     >Filter</button>
                 </div>
             </div>
-            <div className="flex flex-col place-items-center lg:flex-row lg:flex-wrap  gap-5">
+            <div className="flex flex-col place-items-center place-content-center lg:flex-row lg:flex-wrap  gap-5 ">
                 {products.map((product) => (
                     <ShopProduct key={product.id} id={product.id} />
                 ))}
