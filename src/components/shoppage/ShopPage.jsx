@@ -23,6 +23,7 @@ function ShopPage() {
             <main className="flex-1 flex justify-center items-start w-full max-w-[1200px] mx-auto px-4">
                 <Switch>
                     <Route exact path="/shop" component={Shop} />
+                    <Route path="/shop/:gender/:categoryName/:categoryId" component={Shop} />
                     <Route path="/shop/product/:id" component={ShopProductDetails} />
                 </Switch>
             </main>

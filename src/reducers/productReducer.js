@@ -29,8 +29,8 @@ const productReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isLoading: false,
-                products: action.payload.products,
-                total: action.payload.total,
+                products: Array.isArray(action.payload) ? action.payload : action.payload.products || [],
+                total: Array.isArray(action.payload) ? action.payload.length : action.payload.total || 0,
                 error: null
             };
 

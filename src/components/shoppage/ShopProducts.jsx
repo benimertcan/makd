@@ -1,17 +1,10 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchProductsThunk } from '../../actions/productActions';
 import { Grid2X2, List, Loader2 } from "lucide-react";
+import { useSelector } from 'react-redux';
 import ShopProduct from "./ShopProduct";
 import Brands from "../Brands";
 
 const ShopProducts = () => {
-    const dispatch = useDispatch();
     const { products, isLoading, error } = useSelector((store) => store.product);
-
-    useEffect(() => {
-        dispatch(fetchProductsThunk());
-    }, [dispatch]);
 
     if (isLoading) {
         return (
@@ -30,11 +23,11 @@ const ShopProducts = () => {
     }
 
     return (
-        <div className="flex flex-col place-items-center gap-5 place-self-center">
+        <div className="flex flex-col place-items-center gap-5 place-self-center w-full">
             <div className="flex flex-col place-items-center gap-4 lg:flex-row justify-between w-full">
-                <h6>Showing all {products.length} results</h6>
+                <h6 className="h6">Showing all {products.length} results</h6>
                 <div className="flex flex-row gap-3 place-items-center">
-                    <h6>Views: </h6>
+                    <h6 className="h6">Views: </h6>
                     <button className="size-5 border-[1px] border-second-text-color opacity-85 place-items-center">
                         <Grid2X2 className="size-3 text-text-dark" />
                     </button>
@@ -42,32 +35,23 @@ const ShopProducts = () => {
                         <List className="size-3" />
                     </button>
                 </div>
-                <div className="flex flex-row gap-5">
-                    <select name="sort" className='text-second-text-color bg-text-light rounded-md paragraph p-2 border-[#D9D9D9] border-[1px] ml-2'>
-                        <option key={"pop"} value={"pop"} className='bg-text-light text-text-dark'>Popularity</option>
-                    </select>
-                    <button
-                        type="submit"
-                        className={`bg-primary-blue w-28 h-10 rounded-md self-center lg:w-32 lg:h-12 lg:text-2xl text-md font-bold text-text-light place-items-center`}
-                    >
-                        Filter
-                    </button>
-                </div>
             </div>
-            <div className="flex flex-col place-items-center place-content-center lg:flex-row lg:flex-wrap gap-5">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 w-full">
                 {products.map((product) => (
                     <ShopProduct key={product.id} product={product} />
                 ))}
             </div>
             <div className="flex flex-row">
                 <table className="">
-                    <tr className="flex child:text-primary-blue child:p-2 child:border-second-text-color child:shadow-lg child:border-[1px] child:border-opacity-40">
-                        <td className="!text-second-text-color">First</td>
-                        <td>1</td>
-                        <td className="!text-text-light bg-primary-blue">2</td>
-                        <td>3</td>
-                        <td>Next</td>
-                    </tr>
+                    <tbody>
+                        <tr className="flex child:text-primary-blue child:p-2 child:border-second-text-color child:shadow-lg child:border-[1px] child:border-opacity-40">
+                            <td className="!text-second-text-color">First</td>
+                            <td>1</td>
+                            <td className="!text-text-light bg-primary-blue">2</td>
+                            <td>3</td>
+                            <td>Next</td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
             <Brands />
