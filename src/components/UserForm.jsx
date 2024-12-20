@@ -7,6 +7,8 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { fetchRoles } from '../actions/clientActions';
 import axios from 'axios';
+import { Button } from './ui/button';
+import { Input } from './ui/input';
 
 const UserForm = () => {
   const { register, handleSubmit, watch, setValue, formState: { errors, isSubmitting } } = useForm();
@@ -65,7 +67,7 @@ const UserForm = () => {
       <form onSubmit={handleSubmit(onSubmit)} className='gap-5 flex flex-col bg-text-light opacity-90 p-10 rounded-3xl min-w-80 md:min-w-[45rem] my-10'>
         <div className='flex flex-col gap-2'>
           <label className='h5 md:text-xl'>Name *</label>
-          <input 
+          <Input
             {...register('name', { 
               required: 'Name is required',
               minLength: {
@@ -82,7 +84,7 @@ const UserForm = () => {
 
         <div className='flex flex-col gap-2'>
           <label className='h5 md:text-xl'>Email Address *</label>
-          <input 
+          <Input
             {...register('email', { 
               required: 'Email is required',
               pattern: {
@@ -99,7 +101,7 @@ const UserForm = () => {
 
         <div className='flex flex-col gap-2'>
           <label className='h5 md:text-xl'>Password *</label>
-          <input 
+          <Input
             type="password" 
             {...register('password', { 
               required: 'Password is required',
@@ -121,7 +123,7 @@ const UserForm = () => {
 
         <div className='flex flex-col gap-2'>
           <label className='h5 md:text-xl'>Confirm Password *</label>
-          <input 
+          <Input 
             type="password" 
             {...register('confirmPassword', { 
               validate: value => value === watch('password') || "Passwords do not match" 
@@ -152,7 +154,7 @@ const UserForm = () => {
           <>
             <div className='flex flex-col gap-2'>
               <label className='h5 md:text-xl'>Store Name *</label>
-              <input 
+              <Input 
                 {...register('storeName', { 
                   required: isStore && 'Store name is required' 
                 })} 
@@ -165,7 +167,7 @@ const UserForm = () => {
 
             <div className='flex flex-col gap-2'>
               <label className='h5 md:text-xl'>Store Phone *</label>
-              <input 
+              <Input
                 {...register('storePhone', { 
                   required: isStore && 'Store phone is required',
                   pattern: {
@@ -182,7 +184,7 @@ const UserForm = () => {
 
             <div className='flex flex-col gap-2'>
               <label className='h5 md:text-xl'>Store Tax ID *</label>
-              <input 
+              <Input
                 {...register('storeTaxID', { 
                   required: isStore && 'Store tax ID is required' 
                 })} 
@@ -195,7 +197,7 @@ const UserForm = () => {
 
             <div className='flex flex-col gap-2'>
               <label className='h5 md:text-xl'>Store Bank Account *</label>
-              <input 
+              <Input
                 {...register('storeBankAccount', { 
                   required: isStore && 'Store bank account is required' 
                 })} 
@@ -212,13 +214,14 @@ const UserForm = () => {
           Already have an account? <span className='text-primary-blue'>Login</span>
         </Link>
 
-        <button 
+        <Button
+        variant="outline"
           type="submit" 
-          className='bg-primary-blue w-32 h-10 rounded-md self-center lg:w-40 lg:h-12 lg:text-2xl text-md font-bold text-text-light place-items-center'
+          className='w-full md:w-auto self-center bg-primary-blue text-text-light'
           disabled={isSubmitting}
         >
           {isSubmitting ? 'Signing up...' : 'Sign Up'}
-        </button>
+        </Button>
       </form>
     </section>
   );

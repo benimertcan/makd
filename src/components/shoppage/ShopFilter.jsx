@@ -1,6 +1,6 @@
 import { Search } from "lucide-react";
 import { useState, useCallback } from "react";
-
+import { Button } from "../ui/button";
 const ShopFilter = ({ onFilterChange, onSortChange }) => {
     const [showFilters, setShowFilters] = useState(true);
     const [searchValue, setSearchValue] = useState("");
@@ -25,13 +25,14 @@ const ShopFilter = ({ onFilterChange, onSortChange }) => {
     return (
         <div className="w-full flex flex-col gap-4">
             {/* Filter Toggle Button */}
-            <button
+            <Button
+            variant="outline"
                 onClick={toggleFilters}
-                className="w-40 place-self-center lg:place-self-end  px-4 py-2 bg-primary-blue text-text-light rounded-md hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
+                className="w-full md:w-auto self-center lg:self-end"
             >
                 <Search className="size-5" />
                 {showFilters ? 'Hide Filters' : 'Show Filters'}
-            </button>
+            </Button>
 
             {/* Filter Section */}
             <div className={`w-full transition-all duration-300 ease-in-out ${
