@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+import * as tailwindAnimate from "tailwindcss-animate"
 export default {
     darkMode: ["class"],
     content: [
@@ -74,6 +75,6 @@ export default {
         addVariant('child', '& > *');
         addVariant('child-hover', '& > *:hover');
     },
-      require("tailwindcss-animate")
+      [tailwindAnimate],
 ],
 }
