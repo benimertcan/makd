@@ -62,19 +62,25 @@ export const fetchProductById = (id) => async (dispatch) => {
         });
     }
 };
-export const fetchProductByCategory = (id) => async (dispatch) => {
-    dispatch({ type: FETCH_PRODUCT_BY_CATEGORY_START });
-    
-    try {
-        const response = await axios.get(`https://workintech-fe-ecommerce.onrender.com/products?category=${id}`);
-        dispatch({ 
-            type: FETCH_PRODUCTS_SUCCESS, 
-            payload: response.data 
-        });
-    } catch (error) {
-        dispatch({ 
-            type: FETCH_PRODUCT_BY_CATEGORY_ERROR, 
-            payload: error.message 
-        });
-    }
+export const fetchProductByCategory = (categoryId, limit = 25, offset = 0) => {
+    return async (dispatch) => {
+        try {
+            dispatch({ type: FETCH_PRODUCTS_START });
+            const response = await axios.get(
+                `https://workintech-fe-ecommerce.onrender.com/products?limit=${limit}&offset=${offset}${categoryId ? `&category=${categoryId}` : ''}`
+            );
+            dispatch({ 
+                type: FETCH_PRODUCTS_SUCCESS, 
+                payload: {
+                    products: response.data.products,
+                    total: response.data.total
+                }
+            });
+        } catch (error) {
+            dispatch({ 
+                type: FETCH_PRODUCTS_ERROR, 
+                payload: error.message 
+            });
+        }
+    };
 };

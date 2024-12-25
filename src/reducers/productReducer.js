@@ -9,13 +9,13 @@ import {
 
 const initialState = {
     products: [],
-    total: 0,
     currentProduct: null,
     isLoading: false,
-    error: null
+    error: null,
+    total: 0
 };
 
-const productReducer = (state = initialState, action) => {
+export const productReducer = (state = initialState, action) => {
     switch (action.type) {
         case FETCH_PRODUCTS_START:
         case FETCH_PRODUCT_BY_ID_START:
@@ -29,8 +29,8 @@ const productReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isLoading: false,
-                products: Array.isArray(action.payload) ? action.payload : action.payload.products || [],
-                total: Array.isArray(action.payload) ? action.payload.length : action.payload.total || 0,
+                products: action.payload.products,
+                total: action.payload.total,
                 error: null
             };
 
@@ -54,6 +54,5 @@ const productReducer = (state = initialState, action) => {
             return state;
     }
 };
-
 
 export default productReducer;
