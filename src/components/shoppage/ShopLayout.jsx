@@ -5,8 +5,9 @@ import Header from "../Header"
 function ShopLayout({children}) {
     return (
         <>
+        <ShopHeader/>
            <Header />
-           <ShopHeader/>
+           
            <main className="bg-background-light">{children}</main>
            <Footer/>
         </>
