@@ -5,11 +5,12 @@ import ShopProduct from "./ShopProduct";
 import Brands from "../Brands";
 import ShopFilter from "./ShopFilter";
 import { fetchProducts } from "../../actions/productActions";
+import { useParams } from "react-router-dom";
 
-const ShopProducts = () => {
+const ShopProducts = ({ products, isLoading }) => {
     const dispatch = useDispatch();
-    const { products, isLoading, error } = useSelector((store) => store.product);
     const { category } = useSelector((store) => store.category);
+    const { gender, categoryName } = useParams();
     const [sort, setSort] = useState("");
     const [searchQuery, setSearchQuery] = useState("");
     const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");
@@ -48,10 +49,10 @@ const ShopProducts = () => {
         );
     }
 
-    if (error) {
+    if (!products || products.length === 0) {
         return (
             <div className="flex justify-center items-center min-h-[400px]">
-                <p className="text-red-500">Error: {error}</p>
+                <p className="text-lg text-gray-500">No products found</p>
             </div>
         );
     }
@@ -110,23 +111,16 @@ const ShopProducts = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 w-full place-items-center">
                 {filteredProducts.map((product) => 
                     product ? (
-                        <ShopProduct key={product.id} product={product} />
+                        <ShopProduct 
+                        key={product.id} 
+                        product={product} 
+                        gender={gender}
+                        categoryName={categoryName}
+                        />
                     ) : null
                 )}
             </div>
-            <div className="flex flex-row">
-                <table className="">
-                    <tbody>
-                        <tr className="flex child:text-primary-blue child:p-2 child:border-second-text-color child:shadow-lg child:border-[1px] child:border-opacity-40">
-                            <td className="!text-second-text-color">First</td>
-                            <td>1</td>
-                            <td className="!text-text-light bg-primary-blue">2</td>
-                            <td>3</td>
-                            <td>Next</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+           
             <Brands />
         </div>
     );
