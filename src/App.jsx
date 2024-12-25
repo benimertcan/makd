@@ -20,50 +20,68 @@ import ShopPage from './components/shoppage/ShopPage';
 import Shop from './components/shoppage/Shop';
 import ShopProducts from './components/shoppage/ShopProducts';
 import ShopProductDetails from './components/shoppage/ShopProductDetails';
-function App() {
+import AuthProvider from './components/auth/AuthProvider';
+import { useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
+
+// Protected Route component
+const ProtectedRoute = ({ component: Component, ...rest }) => {
+  const { isAuthenticated } = useSelector(state => state.auth);
 
   return (
+    <Route
+      {...rest}
+      render={props =>
+        isAuthenticated ? (
+          <Component {...props} />
+        ) : (
+          <Navigate to="/login" state={{ from: props.location }} replace />
+        )
+      }
+    />
+  );
+};
+
+function App() {
+  return (
     <>
-    <Router>
-      <ToastContainer />
-      <Switch>
-          <Route path="/" exact render={() => (
-      <Layout>
-        <Carousel />
-        <Products />
-        <Wrapper>
-          <Furniture source={"/images/furnitureFirst.jpg"} />
-          <BestSeller />
-        </Wrapper>
-        <Things/>
-        <Wrapper>
-          <Photo source={"/images/photoOne.jpg"}/>
-          <MostPopular/>
-        </Wrapper>
-        <Wrapper>          
-          <BestSeller />
-          <Furniture source={"/images/donut.jpg"} />
-        </Wrapper>
-        <Wrapper>
-          <MostPopular/>
-          <Photo source={"/images/sandwich.jpg"}/>
-        </Wrapper>
-        <BestSellerMini />
-        <Brands/>
-        <FeaturedProducts/>
-      </Layout>
-       )} />
-       <Route path="/shop" render={() => (
-        <>
-      <ShopHeader/>
-      <ShopPage />
-      </>
-       )} />
-       <Route path="/signup" component={UserForm} />
-       <Route path="/login" component={LoginForm} />
-       {/* Add other routes here */}
-     </Switch>
-   </Router>
+      <Router>
+        <AuthProvider>
+          <ToastContainer />
+          <Switch>
+            <Route path="/" exact render={() => (
+              <Layout>
+                <Carousel />
+                <Products />
+                <Wrapper>
+                  <Furniture source={"/images/furnitureFirst.jpg"} />
+                  <BestSeller />
+                </Wrapper>
+                <Things/>
+                <Wrapper>
+                  <Photo source={"/images/photoOne.jpg"}/>
+                  <MostPopular/>
+                </Wrapper>
+                <Wrapper>          
+                  <BestSeller />
+                  <Furniture source={"/images/donut.jpg"} />
+                </Wrapper>
+                <Wrapper>
+                  <MostPopular/>
+                  <Photo source={"/images/sandwich.jpg"}/>
+                </Wrapper>
+                <BestSellerMini />
+                <Brands/>
+                <FeaturedProducts/>
+              </Layout>
+            )} />
+            <ProtectedRoute path="/shop" component={ShopPage} />
+            <Route path="/signup" component={UserForm} />
+            <Route path="/login" component={LoginForm} />
+            {/* Add other protected routes here */}
+          </Switch>
+        </AuthProvider>
+      </Router>
     </>
   )
 }
