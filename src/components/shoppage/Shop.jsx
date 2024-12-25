@@ -24,7 +24,7 @@ const Shop = () => {
         .slice(0, 5);
 
     return (
-        <div className="w-full bg-background-light">
+        <div className="w-full ">
             <section className="flex flex-col gap-5 place-items-center my-5">
                 <div className="flex flex-col gap-8 place-items-center justify-between">
                     <h2 className="h3">Shop</h2>

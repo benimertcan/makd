@@ -71,12 +71,12 @@ function Header() {
                 </div>
 
                 {/* Desktop Navigation */}
-                <div className="hidden lg:flex flex-row gap-5 text-text-transparent text-center place-self-center -mt-7 mr-20 h5 text-second-text-color">
+                <nav className="hidden lg:flex flex-row gap-5 text-text-dark text-center place-self-center -mt-7 mr-20 h5">
                     <Link to="/" className="hover:text-primary-blue transition-colors">Home</Link>
                     <div className="relative" ref={dropdownRef}>
                         <Link 
                             to="/shop"
-                            className="flex items-center gap-1 cursor-pointer hover:text-primary-blue transition-colors"
+                            className="hidden lg:flex items-center gap-1 cursor-pointer hover:text-primary-blue transition-colors"
                             onClick={(e) => {
                                 e.preventDefault();
                                 setShowDropdown(!showDropdown);
@@ -84,25 +84,56 @@ function Header() {
                         >
                             Shop <ChevronDown className='size-5 transition-transform' />
                         </Link>
+                        <Link 
+                            to="/shop"
+                            className="lg:hidden flex items-center gap-1 cursor-pointer hover:text-primary-blue transition-colors"
+                        >
+                            Shop
+                        </Link>
                         {showDropdown && categories && (
-                            <div className="absolute left-1/2 transform -translate-x-1/2 mt-2 w-48 bg-white text-text-dark shadow-lg rounded-md py-2 z-50">
+                            <div className="absolute left-1/2 transform -translate-x-1/2 mt-2 w-96 bg-background-light text-text-dark shadow-lg rounded-md py-4 z-50">
                                 <Link
                                     to="/shop"
-                                    className="block px-4 py-2 hover:bg-gray-100 transition-colors"
+                                    className="block px-4 py-2 text-text-dark hover:bg-gray-100 transition-colors mb-2 text-center font-semibold"
                                     onClick={() => setShowDropdown(false)}
                                 >
                                     All Products
                                 </Link>
-                                {categories.map((category) => (
-                                    <Link
-                                        key={category.id}
-                                        to={`/shop/${category.gender === 'k' ? 'kadin' : 'erkek'}/${category.title.toLowerCase()}/${category.id}`}
-                                        className="block px-4 py-2 hover:bg-gray-100 transition-colors capitalize"
-                                        onClick={() => setShowDropdown(false)}
-                                    >
-                                        {category.title}
-                                    </Link>
-                                ))}
+                                <div className="h-px bg-gray-200 mb-2"></div>
+                                <div className="grid grid-cols-2 gap-2">
+                                    {/* Women's Categories */}
+                                    <div className="px-4">
+                                        <h3 className="font-semibold mb-2 text-primary-blue">Women</h3>
+                                        {categories
+                                            .filter(category => category.gender === 'k')
+                                            .map((category) => (
+                                                <Link
+                                                    key={category.id}
+                                                    to={`/shop/kadin/${category.title.toLowerCase()}/${category.id}`}
+                                                    className="block py-2 text-text-dark hover:text-primary-blue transition-colors capitalize"
+                                                    onClick={() => setShowDropdown(false)}
+                                                >
+                                                    {category.title}
+                                                </Link>
+                                            ))}
+                                    </div>
+                                    {/* Men's Categories */}
+                                    <div className="px-4 border-l border-gray-200">
+                                        <h3 className="font-semibold mb-2 text-primary-blue">Men</h3>
+                                        {categories
+                                            .filter(category => category.gender === 'e')
+                                            .map((category) => (
+                                                <Link
+                                                    key={category.id}
+                                                    to={`/shop/erkek/${category.title.toLowerCase()}/${category.id}`}
+                                                    className="block py-2 text-text-dark hover:text-primary-blue transition-colors capitalize"
+                                                    onClick={() => setShowDropdown(false)}
+                                                >
+                                                    {category.title}
+                                                </Link>
+                                            ))}
+                                    </div>
+                                </div>
                             </div>
                         )}
                     </div>
@@ -110,39 +141,60 @@ function Header() {
                     <Link to="/block" className="hover:text-primary-blue transition-colors">Blog</Link>
                     <Link to="/contact" className="hover:text-primary-blue transition-colors">Contact</Link>
                     <Link to="/pages" className="hover:text-primary-blue transition-colors">Pages</Link>
-                </div>
+                </nav>
 
-                {/* Mobile Navigation */}
+                {/* Mobile Menu Overlay */}
+                {showMobileMenu && (
+                    <div 
+                        className="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-40"
+                        onClick={() => setShowMobileMenu(false)}
+                    />
+                )}
+                {/* Mobile Menu */}
                 {showMobileMenu && (
                     <div 
                         ref={mobileMenuRef}
-                        className="lg:hidden absolute top-full left-0 right-0 bg-white shadow-lg z-50 mt-2 py-4"
+                        className="lg:hidden fixed top-0 right-0 h-screen w-64 bg-background-light text-text-dark shadow-xl z-50 transform transition-transform duration-300 ease-in-out"
                     >
-                        <div className="flex flex-col gap-4 px-4">
+                        <div className="flex flex-col p-4">
+                            <div className="flex justify-between items-center mb-6">
+                                <h3 className="h4 text-text-dark">Menu</h3>
+                                <button 
+                                    onClick={() => setShowMobileMenu(false)}
+                                    className="p-2 hover:bg-gray-100 rounded-full text-text-dark"
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+                            </div>
                             <Link 
                                 to="/" 
-                                className="text-text-dark hover:text-primary-blue transition-colors"
+                                className="py-3 px-4 text-text-dark hover:bg-gray-100 rounded-md transition-colors"
                                 onClick={() => setShowMobileMenu(false)}
                             >
                                 Home
                             </Link>
                             <Link 
                                 to="/shop" 
-                                className="text-text-dark hover:text-primary-blue transition-colors"
+                                className="py-3 px-4 text-text-dark hover:bg-gray-100 rounded-md transition-colors"
                                 onClick={() => setShowMobileMenu(false)}
                             >
                                 All Products
                             </Link>
-                            {categories && categories.map((category) => (
-                                <Link
-                                    key={category.id}
-                                    to={`/shop/${category.gender === 'k' ? 'kadin' : 'erkek'}/${category.title.toLowerCase()}/${category.id}`}
-                                    className="text-text-dark hover:text-primary-blue transition-colors capitalize"
-                                    onClick={() => setShowMobileMenu(false)}
-                                >
-                                    {category.title}
-                                </Link>
-                            ))}
+                            <div className="h-px bg-gray-200 my-2"></div>
+                            <div className="space-y-1">
+                                {categories && categories.map((category) => (
+                                    <Link
+                                        key={category.id}
+                                        to={`/shop/${category.gender === 'k' ? 'kadin' : 'erkek'}/${category.title.toLowerCase()}/${category.id}`}
+                                        className="block py-3 px-4 text-text-dark hover:bg-gray-100 rounded-md transition-colors capitalize"
+                                        onClick={() => setShowMobileMenu(false)}
+                                    >
+                                        {category.title}
+                                    </Link>
+                                ))}
+                            </div>
                         </div>
                     </div>
                 )}
