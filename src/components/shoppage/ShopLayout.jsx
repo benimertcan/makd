@@ -1,4 +1,4 @@
-import ShopHeader from "./ShopHeader"
+import ShopHeader from "./shopHeader"
 import Footer from "../Footer"
 import Header from "../Header"
 
