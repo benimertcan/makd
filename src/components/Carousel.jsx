@@ -70,7 +70,7 @@ const ShopCarousel = () => {
                     images.map((image, index) => (
                         <div
                             key={index}
-                            className={`absolute inset-0 transition-transform transform ${index === currentIndex ? 'translate-x-0' : 'translate-x-full'}`}
+                            className={`absolute inset-0 transition-transform duration-700 transform ${index === currentIndex ? 'translate-x-0' : 'translate-x-full'}`}
                         >
                             <div
                                 className="absolute inset-0 flex items-center justify-center bg-cover bg-center bg-no-repeat"

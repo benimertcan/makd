@@ -85,20 +85,19 @@ function Header() {
                             Shop <ChevronDown className='size-5 transition-transform' />
                         </Link>
                         {showDropdown && categories && (
-                            <div className="absolute left-1/2 transform -translate-x-1/2 mt-2 w-48 bg-primary-blue text-text-light shadow-lg rounded-md py-2 z-50">
+                            <div className="absolute left-1/2 transform -translate-x-1/2 mt-2 w-48 bg-white text-text-dark shadow-lg rounded-md py-2 z-50">
                                 <Link
                                     to="/shop"
-                                    className="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
+                                    className="block px-4 py-2 hover:bg-gray-100 transition-colors"
                                     onClick={() => setShowDropdown(false)}
                                 >
                                     All Products
                                 </Link>
-                                <div className="border-b my-2"></div>
                                 {categories.map((category) => (
                                     <Link
                                         key={category.id}
-                                        to={`/shop/${category.gender}/${category.title.toLowerCase()}`}
-                                        className="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition-colors"
+                                        to={`/shop/${category.gender === 'k' ? 'kadin' : 'erkek'}/${category.title.toLowerCase()}/${category.id}`}
+                                        className="block px-4 py-2 hover:bg-gray-100 transition-colors capitalize"
                                         onClick={() => setShowDropdown(false)}
                                     >
                                         {category.title}
@@ -117,44 +116,33 @@ function Header() {
                 {showMobileMenu && (
                     <div 
                         ref={mobileMenuRef}
-                        className="lg:hidden absolute top-full left-0 right-0 bg-primary-blue text-text-light rounded-md shadow-lg py-4 z-50"
+                        className="lg:hidden absolute top-full left-0 right-0 bg-white shadow-lg z-50 mt-2 py-4"
                     >
                         <div className="flex flex-col gap-4 px-4">
                             <Link 
                                 to="/" 
-                                className="text-text-transparent hover:text-text-dark transition-colors"
+                                className="text-text-dark hover:text-primary-blue transition-colors"
                                 onClick={() => setShowMobileMenu(false)}
                             >
                                 Home
                             </Link>
                             <Link 
                                 to="/shop" 
-                                className="text-text-transparent hover:text-text-dark transition-colors"
+                                className="text-text-dark hover:text-primary-blue transition-colors"
                                 onClick={() => setShowMobileMenu(false)}
                             >
-                                Shop
+                                All Products
                             </Link>
-                            <Link 
-                                to="/product" 
-                                className="text-text-transparent hover:text-text-dark transition-colors"
-                                onClick={() => setShowMobileMenu(false)}
-                            >
-                                Product
-                            </Link>
-                            <Link 
-                                to="/pricing" 
-                                className="text-text-transparent hover:text-text-dark transition-colors"
-                                onClick={() => setShowMobileMenu(false)}
-                            >
-                                Pricing
-                            </Link>
-                            <Link 
-                                to="/contact" 
-                                className="text-text-transparent hover:text-text-dark transition-colors"
-                                onClick={() => setShowMobileMenu(false)}
-                            >
-                                Contact
-                            </Link>
+                            {categories && categories.map((category) => (
+                                <Link
+                                    key={category.id}
+                                    to={`/shop/${category.gender === 'k' ? 'kadin' : 'erkek'}/${category.title.toLowerCase()}/${category.id}`}
+                                    className="text-text-dark hover:text-primary-blue transition-colors capitalize"
+                                    onClick={() => setShowMobileMenu(false)}
+                                >
+                                    {category.title}
+                                </Link>
+                            ))}
                         </div>
                     </div>
                 )}

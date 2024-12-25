@@ -9,6 +9,7 @@ import { fetchProducts } from "../../actions/productActions";
 const ShopProducts = () => {
     const dispatch = useDispatch();
     const { products, isLoading, error } = useSelector((store) => store.product);
+    const { category } = useSelector((store) => store.category);
     const [sort, setSort] = useState("");
     const [searchQuery, setSearchQuery] = useState("");
     const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");
@@ -17,7 +18,7 @@ const ShopProducts = () => {
     useEffect(() => {
         const timeoutId = setTimeout(() => {
             setDebouncedSearchQuery(searchQuery);
-        }, 500); // Wait for 500ms after last keystroke
+        }, 2200); // Wait for 500ms after last keystroke
 
         return () => clearTimeout(timeoutId);
     }, [searchQuery]);
@@ -28,8 +29,12 @@ const ShopProducts = () => {
         if (sort) params.sort = sort;
         if (debouncedSearchQuery) params.filter = debouncedSearchQuery; 
 
-        dispatch(fetchProducts(params));
-    }, [sort, debouncedSearchQuery, dispatch]);
+        if (category && category.id) {
+            dispatch(fetchProducts({ ...params, filterByCategory: category.id }));
+        } else {
+            dispatch(fetchProducts(params));
+        }
+    }, [sort, debouncedSearchQuery, category, dispatch]);
 
     const handleSearch = useCallback((query) => {
         setSearchQuery(query);
