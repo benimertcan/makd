@@ -15,12 +15,12 @@ import FeaturedProducts from './components/FeaturedProducts';
 import Things from './components/Things';
 import UserForm from './components/UserForm';
 import LoginForm from './components/LoginForm';
-import ShopHeader from './components/shoppage/shopHeader';
 import ShopPage from './components/shoppage/ShopPage';
 import Shop from './components/shoppage/Shop';
 import ShopProducts from './components/shoppage/ShopProducts';
 import ShopProductDetails from './components/shoppage/ShopProductDetails';
 import AuthProvider from './components/auth/AuthProvider';
+import ShopLayout from './components/shoppage/ShopLayout';
 
 function App() {
   return (
@@ -55,14 +55,39 @@ function App() {
                 <FeaturedProducts/>
               </Layout>
             )} />
-            <Route path="/shop" render={() => (
-              <>
-                <ShopHeader/>
+            <Route path="/shop" exact render={() => (
+              <ShopLayout>
                 <ShopPage />
-              </>
+              </ShopLayout>
             )} />
-            <Route path="/signup" component={UserForm} />
-            <Route path="/login" component={LoginForm} />
+            <Route 
+              path="/shop/:gender/:categoryName/:categoryId" 
+              exact
+              render={() => (
+                <ShopLayout>
+                  <ShopPage />
+                </ShopLayout>
+              )}
+            />
+            <Route 
+              path="/shop/:gender/:categoryName/:categoryId/:productNameSlug/:productId" 
+              exact 
+              render={() => (
+                <ShopLayout>
+                  <ShopProductDetails />
+                </ShopLayout>
+              )} 
+            />
+            <Route path="/signup" render={() => (
+              <Layout>
+                <UserForm />
+              </Layout>
+            )} />
+            <Route path="/login" render={() => (
+              <Layout>
+                <LoginForm />
+              </Layout>
+            )} />
           </Switch>
         </AuthProvider>
       </Router>

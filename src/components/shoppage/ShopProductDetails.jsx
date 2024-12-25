@@ -1,78 +1,163 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProductById } from "../../actions/productActions";
-import { ChevronRight, Heart, Loader2, Star } from "lucide-react";
+import { ChevronRight, Heart, Loader2, Star, ArrowLeft, ChevronLeft, ChevronRight as ChevronRightIcon, Eye } from "lucide-react";
 import { Link } from "react-router-dom";
-import Brands from "../Brands";
+import ProductTabs from "./ProductTabs";
+import BestSellerProducts from "../BestSellerProducts";
 
 const ShopProductDetails = () => {
-    const { id } = useParams();
+    const { gender, categoryName, categoryId, productNameSlug, productId } = useParams();
     const dispatch = useDispatch();
+    const history = useHistory();
     const { currentProduct, isLoading, error } = useSelector((store) => store.product);
     const [selectedImage, setSelectedImage] = useState(0);
 
     useEffect(() => {
-        if (id) {
-            dispatch(fetchProductById(id));
+        if (productId) {
+            dispatch(fetchProductById(productId));
         }
-    }, [dispatch, id]);
+    }, [dispatch, productId]);
+
+    const handleBack = () => {
+        history.goBack();
+    };
 
     if (isLoading) {
         return (
-            <div className="flex justify-center items-center min-h-[400px]">
-                <Loader2 className="size-12 animate-spin text-primary-blue" />
+            <div className="container mx-auto px-4 py-8">
+                <div className="flex flex-col gap-8 animate-pulse">
+                    <button 
+                        className="flex items-center gap-2 text-primary-blue w-fit"
+                    >
+                        <ArrowLeft className="size-5" />
+                        <div className="h-4 w-16 bg-gray-200 rounded"></div>
+                    </button>
+                    <div className="flex flex-col lg:flex-row gap-8">
+                        {/* Image Skeleton */}
+                        <div className="w-full lg:w-1/2">
+                            <div className="aspect-square bg-gray-200 rounded-lg"></div>
+                            <div className="flex gap-4 mt-4">
+                                {[1, 2, 3, 4].map((i) => (
+                                    <div key={i} className="w-20 h-20 bg-gray-200 rounded-lg flex-shrink-0"></div>
+                                ))}
+                            </div>
+                        </div>
+                        {/* Content Skeleton */}
+                        <div className="w-full lg:w-1/2 space-y-6">
+                            <div className="h-8 bg-gray-200 rounded w-3/4"></div>
+                            <div className="flex gap-2">
+                                {[1, 2, 3, 4, 5].map((i) => (
+                                    <div key={i} className="w-5 h-5 bg-gray-200 rounded-full"></div>
+                                ))}
+                            </div>
+                            <div className="h-10 bg-gray-200 rounded w-1/3"></div>
+                            <div className="space-y-2">
+                                <div className="h-4 bg-gray-200 rounded w-full"></div>
+                                <div className="h-4 bg-gray-200 rounded w-5/6"></div>
+                                <div className="h-4 bg-gray-200 rounded w-4/6"></div>
+                            </div>
+                            <div className="flex gap-4">
+                                {[1, 2, 3, 4].map((i) => (
+                                    <div key={i} className="w-8 h-8 bg-gray-200 rounded-full"></div>
+                                ))}
+                            </div>
+                            <div className="flex gap-4">
+                                <div className="h-12 bg-gray-200 rounded w-40"></div>
+                                <div className="h-12 w-12 bg-gray-200 rounded"></div>
+                                <div className="h-12 w-12 bg-gray-200 rounded"></div>
+                                <div className="h-12 w-12 bg-gray-200 rounded"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     }
 
     if (error) {
         return (
-            <div className="flex justify-center items-center min-h-[400px]">
-                <p className="text-red-500">Error: {error}</p>
+            <div className="container mx-auto px-4 py-8">
+                <button 
+                    onClick={handleBack}
+                    className="flex items-center gap-2 text-primary-blue hover:text-primary-blue/80 transition-colors mb-8"
+                >
+                    <ArrowLeft className="size-5" />
+                    Back
+                </button>
+                <div className="flex justify-center items-center min-h-[400px]">
+                    <p className="text-red-500 text-lg">Error: {error}</p>
+                </div>
             </div>
         );
     }
 
     if (!currentProduct) {
         return (
-            <div className="flex justify-center items-center min-h-[400px]">
-                <p>Product not found</p>
+            <div className="container mx-auto px-4 py-8">
+                <button 
+                    onClick={handleBack}
+                    className="flex items-center gap-2 text-primary-blue hover:text-primary-blue/80 transition-colors mb-8"
+                >
+                    <ArrowLeft className="size-5" />
+                    Back
+                </button>
+                <div className="flex justify-center items-center min-h-[400px]">
+                    <p className="text-gray-500 text-lg">Product not found. ID: {productId}</p>
+                </div>
             </div>
         );
     }
 
-    const { name, description, price, stock, rating, sell_count, images = [] } = currentProduct;
+    const { name, description, price, stock, rating = 4.5, sell_count, images = [] } = currentProduct;
+
+    const nextImage = () => {
+        setSelectedImage((prev) => (prev + 1) % images.length);
+    };
+
+    const prevImage = () => {
+        setSelectedImage((prev) => (prev - 1 + images.length) % images.length);
+    };
 
     return (
-        <div className="flex flex-col gap-5">
-            {/* Breadcrumb */}
-            <div className="flex flex-row gap-2 place-items-center mx-8">
-                <Link to="/" className="h6">Home</Link>
-                <ChevronRight className="size-5 text-second-text-color" />
-                <Link to="/shop" className="h6">Shop</Link>
-                <ChevronRight className="size-5 text-second-text-color" />
-                <h6 className="h6 text-second-text-color">{name}</h6>
-            </div>
-
-            {/* Product Details */}
-            <div className="flex flex-col lg:flex-row gap-8 mx-8">
-                {/* Image Gallery */}
-                <div className="flex flex-col gap-4 lg:w-1/2">
-                    <div className="aspect-square overflow-hidden rounded-lg">
+        <div className="container mx-auto px-4 py-8">
+            <button 
+                onClick={handleBack}
+                className="flex items-center gap-2 text-primary-blue hover:text-primary-blue/80 transition-colors mb-8"
+            >
+                <ArrowLeft className="size-5" />
+                Back
+            </button>
+            <div className="flex flex-col lg:flex-row gap-8">
+                {/* Left Column - Image Gallery */}
+                <div className="w-full lg:w-1/2 relative">
+                    <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden relative">
                         <img
                             src={images[selectedImage]?.url || "/images/product-placeholder.jpg"}
                             alt={name}
                             className="w-full h-full object-cover"
                         />
+                        <button 
+                            onClick={prevImage} 
+                            className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full hover:bg-white"
+                        >
+                            <ChevronLeft className="size-6" />
+                        </button>
+                        <button 
+                            onClick={nextImage} 
+                            className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full hover:bg-white"
+                        >
+                            <ChevronRightIcon className="size-6" />
+                        </button>
                     </div>
-                    <div className="flex gap-4 overflow-x-auto">
+                    <div className="flex gap-4 mt-4 overflow-x-auto">
                         {images.map((image, index) => (
                             <button
                                 key={index}
                                 onClick={() => setSelectedImage(index)}
-                                className={`w-24 h-24 flex-shrink-0 rounded-lg overflow-hidden border-2 ${
-                                    selectedImage === index ? 'border-primary-blue' : 'border-transparent'
+                                className={`w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden ${
+                                    selectedImage === index ? 'ring-2 ring-primary-blue' : ''
                                 }`}
                             >
                                 <img
@@ -85,40 +170,82 @@ const ShopProductDetails = () => {
                     </div>
                 </div>
 
-                {/* Product Info */}
-                <div className="flex flex-col gap-4 lg:w-1/2">
-                    <h2 className="h2">{name}</h2>
-                    <div className="flex items-center gap-4">
-                        <div className="flex items-center">
-                            <Star className="size-5 fill-yellow-400 text-yellow-400" />
-                            <span className="ml-1">{rating.toFixed(1)}</span>
-                        </div>
-                        <span className="text-gray-600">|</span>
-                        <span className="text-gray-600">{sell_count} sold</span>
-                    </div>
-                    <p className="text-xl font-bold text-primary-blue">${price}</p>
-                    <p className="text-gray-600">{description}</p>
+                {/* Right Column - Product Info */}
+                <div className="w-full lg:w-1/2">
+                    <h1 className="text-3xl font-bold text-gray-900 mb-4">{name}</h1>
                     
-                    {/* Stock Status */}
-                    <div className="flex items-center gap-2">
-                        <span className={`font-semibold ${stock > 50 ? 'text-green-500' : 'text-red-500'}`}>
-                            {stock > 50 ? 'In Stock' : `Low Stock (${stock} left)`}
-                        </span>
+                    <div className="flex items-center gap-2 mb-6">
+                        <div className="flex">
+                            {[1, 2, 3, 4, 5].map((star) => (
+                                <Star 
+                                    key={star}
+                                    className={`size-5 ${star <= Math.floor(rating) 
+                                        ? 'fill-yellow-400 text-yellow-400' 
+                                        : 'fill-gray-200 text-gray-200'}`}
+                                />
+                            ))}
+                        </div>
+                        <span className="text-gray-600">{rating}</span>
+                        <span className="text-gray-400">|</span>
+                        <span className="text-gray-600">{sell_count} Reviews</span>
                     </div>
 
-                    {/* Actions */}
-                    <div className="flex gap-4 mt-4">
-                        <button className="bg-primary-blue text-white px-8 py-3 rounded-md hover:bg-blue-600 transition-colors">
-                            Add to Cart
+                    <div className="mb-6">
+                        <h2 className="text-3xl font-bold text-primary-blue">
+                            ${price.toFixed(2)}
+                        </h2>
+                        <div className="flex items-center gap-2 mt-2">
+                            <span className="text-green-500 font-medium">
+                                Availability:
+                            </span>
+                            <span className="text-green-500">
+                                In Stock
+                            </span>
+                        </div>
+                    </div>
+
+                    <p className="text-gray-600 mb-8">
+                        {description}
+                    </p>
+
+                    <div className="flex gap-4 mb-8">
+                        {/* Color options */}
+                        <button className="w-8 h-8 rounded-full bg-[#23A6F0] ring-2 ring-offset-2 ring-[#23A6F0]"></button>
+                        <button className="w-8 h-8 rounded-full bg-[#2DC071]"></button>
+                        <button className="w-8 h-8 rounded-full bg-[#E77C40]"></button>
+                        <button className="w-8 h-8 rounded-full bg-[#252B42]"></button>
+                    </div>
+
+                    <div className="flex flex-wrap gap-4">
+                        <button className="px-8 py-3 bg-primary-blue text-white rounded-md hover:bg-primary-blue/90 transition-colors">
+                            Select Options
                         </button>
-                        <button className="border border-gray-300 p-3 rounded-md hover:bg-gray-100 transition-colors">
+                        <button className="p-3 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors">
                             <Heart className="size-6" />
+                        </button>
+                        <button className="p-3 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors">
+                            <Eye className="size-6" />
+                        </button>
+                        <button className="p-3 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors">
+                            🛒
                         </button>
                     </div>
                 </div>
             </div>
 
-            <Brands />
+            {/* Product Tabs */}
+            <div className="mt-16">
+                <ProductTabs 
+                    description={description}
+                    additionalInfo={currentProduct.additional_information}
+                    reviews={currentProduct.reviews}
+                />
+            </div>
+
+            {/* Best Seller Products */}
+            <div className="mt-16">
+                <BestSellerProducts />
+            </div>
         </div>
     );
 };
