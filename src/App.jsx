@@ -21,26 +21,6 @@ import Shop from './components/shoppage/Shop';
 import ShopProducts from './components/shoppage/ShopProducts';
 import ShopProductDetails from './components/shoppage/ShopProductDetails';
 import AuthProvider from './components/auth/AuthProvider';
-import { useSelector } from 'react-redux';
-import { Navigate } from 'react-router-dom';
-
-// Protected Route component
-const ProtectedRoute = ({ component: Component, ...rest }) => {
-  const { isAuthenticated } = useSelector(state => state.auth);
-
-  return (
-    <Route
-      {...rest}
-      render={props =>
-        isAuthenticated ? (
-          <Component {...props} />
-        ) : (
-          <Navigate to="/login" state={{ from: props.location }} replace />
-        )
-      }
-    />
-  );
-};
 
 function App() {
   return (
@@ -75,10 +55,14 @@ function App() {
                 <FeaturedProducts/>
               </Layout>
             )} />
-            <ProtectedRoute path="/shop" component={ShopPage} />
+            <Route path="/shop" render={() => (
+              <>
+                <ShopHeader/>
+                <ShopPage />
+              </>
+            )} />
             <Route path="/signup" component={UserForm} />
             <Route path="/login" component={LoginForm} />
-            {/* Add other protected routes here */}
           </Switch>
         </AuthProvider>
       </Router>
