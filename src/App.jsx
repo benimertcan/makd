@@ -21,6 +21,7 @@ import ShopProducts from './components/shoppage/ShopProducts';
 import ShopProductDetails from './components/shoppage/ShopProductDetails';
 import AuthProvider from './components/auth/AuthProvider';
 import ShopLayout from './components/shoppage/ShopLayout';
+import ShoppingCart from './pages/ShoppingCart';
 
 function App() {
   return (
@@ -87,6 +88,11 @@ function App() {
            
                 <LoginForm />
              
+            )} />
+            <Route path="/cart" render={() => (
+              <Layout>
+                <ShoppingCart />
+              </Layout>
             )} />
           </Switch>
         </AuthProvider>

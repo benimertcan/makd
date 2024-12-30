@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProductById } from "../../actions/productActions";
-import { addToCart } from "../../actions/shoppingCartActions";
+import { addToCart } from "../../store/cartSlice";
 import { ChevronRight, Heart, Loader2, Star, ArrowLeft, ChevronLeft, ChevronRight as ChevronRightIcon, Eye } from "lucide-react";
 import { Link } from "react-router-dom";
 import ProductTabs from "./ProductTabs";
