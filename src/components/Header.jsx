@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { useEffect, useState, useRef } from 'react';
 import { fetchCategories } from '../actions/categoryActions';
+import ShoppingCartDropdown from './ShoppingCartDropdown';
 
 function Header() {
     const dispatch = useDispatch();
@@ -37,31 +38,37 @@ function Header() {
         if (showDropdown) setShowDropdown(false);
     };
 
+    const handleLogout = () => {
+        if (dispatch && typeof dispatch === 'function') {
+            dispatch({ type: 'LOGOUT' });
+        }
+        toast.success('Successfully logged out.');
+    };
+
     return (
         <>
-            <header className="flex flex-col my-5 md:my-10 min-w-full relative">
-                <div className='flex flex-row place-items-center justify-between mx-4 md:mx-8'>
+            <header className="flex flex-col my-5 md:my-10  ">
+                <div className='flex flex-row place-items-center justify-between mx-4 md:mx-8 '>
                     <img src="/images/logo.svg" alt="Logo" className="w-24 md:w-auto" />
-                    <div className='flex flex-row gap-2 md:gap-3 lg:gap-5 lg:text-primary-blue flex-wrap place-content-end'>
-                        <Link to="/signup" className='text-text-transparent flex flex-col lg:flex-row place-items-center text-center place-content-center h6 lg:h5'>
+                    <div className='flex flex-row gap-2 md:gap-3 lg:gap-5 xl:gap-8 lg:text-primary-blue flex-wrap place-content-end'>
+                        <Link to="/signup" className='text-text-transparent flex flex-col md:flex-row items-center gap-1 text-center h6 lg:h5'>
                             <User className='size-6 md:size-8 hover:scale-95 transition-transform' /> 
-                            {username ? <p className='paragraph text-nowrap lg:h6'>{username}</p> : <p className='hidden lg:block'>Login / Register</p>}
+                            {username ? (
+                                <p className='text-xs md:text-sm lg:text-base xl:text-lg text-nowrap truncate max-w-[100px] md:max-w-[150px] xl:max-w-[200px]'>{username}</p>
+                            ) : (
+                                <p className='hidden md:block lg:text-base xl:text-lg'>Login / Register</p>
+                            )}
                         </Link>
                         {username ? (
                             <LogOut 
                                 className='size-6 md:size-8 hover:scale-95 transition-transform cursor-pointer' 
-                                onClick={() => {
-                                    if (dispatch && typeof dispatch === 'function') {
-                                        dispatch({ type: 'LOGOUT' });
-                                    }
-                                    toast.success('Successfully logged out.');
-                                }}
+                                onClick={handleLogout}
                             />
                         ) : null}
                         <Search className='size-6 md:size-8 hover:scale-95 transition-transform cursor-pointer' />
-                        <Link to="/shop">
-                            <ShoppingCart className='size-6 md:size-8 hover:scale-95 transition-transform' />
-                        </Link>
+                        <div className="relative">
+                            <ShoppingCartDropdown />
+                        </div>
                         <Heart className='size-6 md:size-8 hover:scale-95 transition-transform hidden lg:block cursor-pointer' />
                         <Menu 
                             className='size-6 md:size-8 hover:scale-95 transition-transform lg:hidden cursor-pointer' 

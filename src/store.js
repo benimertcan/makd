@@ -7,6 +7,7 @@ import clientReducer from './reducers/clientReducer';
 import productReducer from './reducers/productReducer';
 import cartReducer from './reducers/cartReducer';
 import categoryReducer from './reducers/categoryReducer';
+import shoppingCartReducer from './reducers/shoppingCartReducer';
 
 const store = configureStore({
   reducer: {
@@ -14,7 +15,8 @@ const store = configureStore({
     client: clientReducer,
     product: productReducer,
     cart: cartReducer,
-    category: categoryReducer
+    category: categoryReducer,
+    shoppingCart: shoppingCartReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(thunk, logger)
