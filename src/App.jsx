@@ -79,14 +79,14 @@ function App() {
               )} 
             />
             <Route path="/signup" render={() => (
-              <Layout>
+              
                 <UserForm />
-              </Layout>
+           
             )} />
             <Route path="/login" render={() => (
-              <Layout>
+           
                 <LoginForm />
-              </Layout>
+             
             )} />
           </Switch>
         </AuthProvider>
