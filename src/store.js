@@ -5,9 +5,8 @@ import logger from 'redux-logger';
 import authReducer from './reducers/authReducer';
 import clientReducer from './reducers/clientReducer';
 import productReducer from './reducers/productReducer';
-import cartReducer from './reducers/cartReducer';
+import cartReducer from './store/cartSlice';
 import categoryReducer from './reducers/categoryReducer';
-import shoppingCartReducer from './reducers/shoppingCartReducer';
 
 const store = configureStore({
   reducer: {
@@ -15,8 +14,7 @@ const store = configureStore({
     client: clientReducer,
     product: productReducer,
     cart: cartReducer,
-    category: categoryReducer,
-    shoppingCart: shoppingCartReducer
+    category: categoryReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(thunk, logger)

@@ -1,15 +1,18 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeFromCart, updateCartItemCount } from '../actions/shoppingCartActions';
+import { removeFromCart, incrementProduct, decrementProduct } from '../store/cartSlice';
 import { ShoppingCart } from 'lucide-react';
+import { useHistory } from 'react-router-dom';
 
 const ShoppingCartDropdown = () => {
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef(null);
-    const cart = useSelector(state => state.shoppingCart.cart);
+    const cart = useSelector(state => state.cart.cart);
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const totalItems = cart.reduce((sum, item) => sum + item.count, 0);
+    const totalAmount = cart.reduce((sum, item) => sum + (item.product.price * item.count), 0);
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -28,7 +31,11 @@ const ShoppingCartDropdown = () => {
 
     const handleCountChange = (productId, newCount) => {
         const count = Math.max(1, parseInt(newCount) || 1);
-        dispatch(updateCartItemCount(productId, count));
+        if (count > parseInt(newCount)) {
+            dispatch(decrementProduct(productId));
+        } else {
+            dispatch(incrementProduct(productId));
+        }
     };
 
     return (
@@ -54,8 +61,8 @@ const ShoppingCartDropdown = () => {
                             {cart.map(item => (
                                 <div key={item.product.id} className="flex items-center p-2 md:p-3 border-b border-gray-200 last:border-b-0 gap-2 bg-white rounded-md">
                                     <img 
-                                        src={item.product.images?.[0]?.url || "/images/meatProduct.jpg"} 
-                                        alt={item.product.name} 
+                                        src={item.product.images?.[0]?.url || "/images/nugget.jpg"} 
+                                        alt={item.product.name || "Product"} 
                                         className="w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 object-cover rounded-md"
                                     />
                                     <div className="flex-grow min-w-0">
@@ -81,6 +88,34 @@ const ShoppingCartDropdown = () => {
                                     </div>
                                 </div>
                             ))}
+                            <div className="mt-4 p-3 bg-white rounded-md">
+                                <div className="flex justify-between items-center mb-3">
+                                    <span className="text-sm md:text-base font-semibold">Total Amount:</span>
+                                    <span className="text-sm md:text-base font-bold text-primary-blue">
+                                        ${totalAmount.toFixed(2)}
+                                    </span>
+                                </div>
+                                <div className="flex gap-2">
+                                    <button
+                                        onClick={() => {
+                                            setIsOpen(false);
+                                            history.push('/cart');
+                                        }}
+                                        className="flex-1 bg-primary-blue text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors text-sm md:text-base"
+                                    >
+                                        View Cart
+                                    </button>
+                                    <button
+                                        onClick={() => {
+                                            setIsOpen(false);
+                                            history.push('/cart');
+                                        }}
+                                        className="flex-1 bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition-colors text-sm md:text-base"
+                                    >
+                                        Order Now
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     )}
                 </div>

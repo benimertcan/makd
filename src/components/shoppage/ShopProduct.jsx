@@ -1,6 +1,6 @@
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addToCart } from "../../actions/shoppingCartActions";
+import { addToCart } from "../../store/cartSlice";
 import { toast } from "react-toastify";
 import { ShoppingCart } from "lucide-react";
 
@@ -51,7 +51,8 @@ const ShopProduct = ({ product, gender = "all", categoryName = "category" }) => 
                 <h5 className="h5 text-text-price">${price}</h5>
                 <button
                     onClick={handleAddToCart}
-                    className="p-2 bg-primary-blue text-white rounded-full hover:bg-primary-blue/90 transition-colors"
+                    className="bg-primary-blue text-white p-2 rounded-full hover:bg-blue-600 transition-colors"
+                    aria-label="Add to cart"
                 >
                     <ShoppingCart className="size-5" />
                 </button>
