@@ -53,7 +53,7 @@ const ShoppingCartDropdown = () => {
             </div>
 
             {isOpen && (
-                <div className="absolute right-0 mt-2 bg-white rounded-lg shadow-lg w-[280px] md:w-[320px] lg:w-[360px] xl:w-[400px] max-h-[calc(90vh-80px)] overflow-y-auto z-50">
+                <div className="absolute right-0 mt-2 bg-text-light rounded-lg shadow-lg w-[280px] md:w-[320px] lg:w-[360px] xl:w-[400px] max-h-[calc(90vh-80px)] overflow-y-auto z-50">
                     {cart.length === 0 ? (
                         <p className="p-3 md:p-4 text-center text-gray-500 text-sm">Your cart is empty</p>
                     ) : (
