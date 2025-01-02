@@ -21,7 +21,9 @@ import ShopProducts from './components/shoppage/ShopProducts';
 import ShopProductDetails from './components/shoppage/ShopProductDetails';
 import AuthProvider from './components/auth/AuthProvider';
 import ShopLayout from './components/shoppage/ShopLayout';
-import ShoppingCart from './pages/ShoppingCart';
+import ShoppingCart from './components/ShoppingCart';
+import ProtectedRoute from './components/ProtectedRoute';
+import CreateOrder from './pages/CreateOrder';
 
 function App() {
   return (
@@ -94,6 +96,11 @@ function App() {
                 <ShoppingCart />
               </Layout>
             )} />
+            <ProtectedRoute path="/create-order">
+              <Layout>
+                <CreateOrder />
+              </Layout>
+            </ProtectedRoute>
           </Switch>
         </AuthProvider>
       </Router>
