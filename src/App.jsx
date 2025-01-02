@@ -24,6 +24,7 @@ import ShopLayout from './components/shoppage/ShopLayout';
 import ShoppingCart from './components/ShoppingCart';
 import ProtectedRoute from './components/ProtectedRoute';
 import CreateOrder from './pages/CreateOrder';
+import Orders from './pages/Orders';
 
 function App() {
   return (
@@ -99,6 +100,11 @@ function App() {
             <ProtectedRoute path="/create-order">
               <Layout>
                 <CreateOrder />
+              </Layout>
+            </ProtectedRoute>
+            <ProtectedRoute path="/orders">
+              <Layout>
+                <Orders />
               </Layout>
             </ProtectedRoute>
           </Switch>

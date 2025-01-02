@@ -8,9 +8,11 @@ import ShoppingCartDropdown from './ShoppingCartDropdown';
 
 function Header() {
     const dispatch = useDispatch();
-    const [showDropdown, setShowDropdown] = useState(false);
+    const [showUserDropdown, setShowUserDropdown] = useState(false);
+    const [showShopDropdown, setShowShopDropdown] = useState(false);
     const [showMobileMenu, setShowMobileMenu] = useState(false);
-    const dropdownRef = useRef(null);
+    const userDropdownRef = useRef(null);
+    const shopDropdownRef = useRef(null);
     const mobileMenuRef = useRef(null);
     const username = useSelector((store) => store.auth.username);
     const { categories } = useSelector((store) => store.category);
@@ -21,8 +23,11 @@ function Header() {
 
     useEffect(() => {
         const handleClickOutside = (event) => {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-                setShowDropdown(false);
+            if (userDropdownRef.current && !userDropdownRef.current.contains(event.target)) {
+                setShowUserDropdown(false);
+            }
+            if (shopDropdownRef.current && !shopDropdownRef.current.contains(event.target)) {
+                setShowShopDropdown(false);
             }
             if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target)) {
                 setShowMobileMenu(false);
@@ -35,7 +40,8 @@ function Header() {
 
     const toggleMobileMenu = () => {
         setShowMobileMenu(!showMobileMenu);
-        if (showDropdown) setShowDropdown(false);
+        if (showUserDropdown) setShowUserDropdown(false);
+        if (showShopDropdown) setShowShopDropdown(false);
     };
 
     const handleLogout = () => {
@@ -51,20 +57,53 @@ function Header() {
                 <div className='flex flex-row place-items-center justify-between mx-4 md:mx-8 '>
                     <img src="/images/logo.svg" alt="Logo" className="w-24 md:w-auto" />
                     <div className='flex flex-row gap-2 md:gap-3 lg:gap-5 xl:gap-8 lg:text-primary-blue flex-wrap place-content-end'>
-                        <Link to="/signup" className='text-text-transparent flex flex-col md:flex-row items-center gap-1 text-center h6 lg:h5'>
-                            <User className='size-6 md:size-8 hover:scale-95 transition-transform' /> 
-                            {username ? (
-                                <p className='text-xs md:text-sm lg:text-base xl:text-lg text-nowrap truncate max-w-[100px] md:max-w-[150px] xl:max-w-[200px]'>{username}</p>
-                            ) : (
-                                <p className='hidden md:block lg:text-base xl:text-lg'>Login / Register</p>
-                            )}
-                        </Link>
                         {username ? (
-                            <LogOut 
-                                className='size-6 md:size-8 hover:scale-95 transition-transform cursor-pointer' 
-                                onClick={handleLogout}
-                            />
-                        ) : null}
+                            <div className="relative" ref={userDropdownRef}>
+                                <button
+                                    onClick={() => {
+                                        setShowUserDropdown(!showUserDropdown);
+                                        setShowShopDropdown(false);
+                                    }}
+                                    className="flex flex-col md:flex-row items-center gap-1 text-center h6 lg:h5"
+                                >
+                                    <User className='size-6 md:size-8 hover:scale-95 transition-transform' />
+                                    <p className='text-xs md:text-sm lg:text-base xl:text-lg text-nowrap truncate max-w-[100px] md:max-w-[150px] xl:max-w-[200px]'>
+                                        {username}
+                                    </p>
+                                    <ChevronDown className='size-4' />
+                                </button>
+                                {showUserDropdown && (
+                                    <div
+                                        className="absolute right-0 mt-2 w-48 opacity-100 rounded-md shadow-lg py-1 bg-text-light ring-1 ring-black ring-opacity-5 z-50"
+                                    >
+                                        <Link
+                                            to="/orders"
+                                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                            onClick={() => setShowUserDropdown(false)}
+                                        >
+                                            My Orders
+                                        </Link>
+                                        <button
+                                            onClick={() => {
+                                                setShowUserDropdown(false);
+                                                handleLogout();
+                                            }}
+                                            className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                        >
+                                            <div className="flex items-center space-x-2">
+                                                <LogOut className="size-4" />
+                                                <span>Logout</span>
+                                            </div>
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
+                        ) : (
+                            <Link to="/signup" className='text-text-transparent flex flex-col md:flex-row items-center gap-1 text-center h6 lg:h5'>
+                                <User className='size-6 md:size-8 hover:scale-95 transition-transform' />
+                                <p className='hidden md:block lg:text-base xl:text-lg'>Login / Register</p>
+                            </Link>
+                        )}
                         <Search className='size-6 md:size-8 hover:scale-95 transition-transform cursor-pointer' />
                         <div className="relative">
                             <ShoppingCartDropdown />
@@ -80,29 +119,29 @@ function Header() {
                 {/* Desktop Navigation */}
                 <nav className="hidden lg:flex flex-row gap-5 text-text-dark text-center place-self-center -mt-7 mr-20 h5">
                     <Link to="/" className="hover:text-primary-blue transition-colors">Home</Link>
-                    <div className="relative" ref={dropdownRef}>
-                        <Link 
-                            to="/shop"
+                    <div className="relative" ref={shopDropdownRef}>
+                        <button
                             className="hidden lg:flex items-center gap-1 cursor-pointer hover:text-primary-blue transition-colors"
                             onClick={(e) => {
                                 e.preventDefault();
-                                setShowDropdown(!showDropdown);
+                                setShowShopDropdown(!showShopDropdown);
+                                setShowUserDropdown(false);
                             }}
                         >
                             Shop <ChevronDown className='size-5 transition-transform' />
-                        </Link>
+                        </button>
                         <Link 
                             to="/shop"
                             className="lg:hidden flex items-center gap-1 cursor-pointer hover:text-primary-blue transition-colors"
                         >
                             Shop
                         </Link>
-                        {showDropdown && categories && (
-                            <div className="absolute left-1/2 transform -translate-x-1/2 mt-2 w-96 bg-background-light text-text-dark shadow-lg rounded-md py-4 z-50">
+                        {showShopDropdown && categories && (
+                            <div className="absolute left-1/2 transform -translate-x-1/2 mt-2 w-96 bg-background-light text-text-dark shadow-lg rounded-md py-4 z-40">
                                 <Link
                                     to="/shop"
                                     className="block px-4 py-2 text-text-dark hover:bg-gray-100 transition-colors mb-2 text-center font-semibold"
-                                    onClick={() => setShowDropdown(false)}
+                                    onClick={() => setShowShopDropdown(false)}
                                 >
                                     All Products
                                 </Link>
@@ -118,7 +157,7 @@ function Header() {
                                                     key={category.id}
                                                     to={`/shop/kadin/${category.title.toLowerCase()}/${category.id}`}
                                                     className="block py-2 text-text-dark hover:text-primary-blue transition-colors capitalize"
-                                                    onClick={() => setShowDropdown(false)}
+                                                    onClick={() => setShowShopDropdown(false)}
                                                 >
                                                     {category.title}
                                                 </Link>
@@ -134,7 +173,7 @@ function Header() {
                                                     key={category.id}
                                                     to={`/shop/erkek/${category.title.toLowerCase()}/${category.id}`}
                                                     className="block py-2 text-text-dark hover:text-primary-blue transition-colors capitalize"
-                                                    onClick={() => setShowDropdown(false)}
+                                                    onClick={() => setShowShopDropdown(false)}
                                                 >
                                                     {category.title}
                                                 </Link>
