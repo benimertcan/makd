@@ -25,6 +25,7 @@ import ShoppingCart from './components/ShoppingCart';
 import ProtectedRoute from './components/ProtectedRoute';
 import CreateOrder from './pages/CreateOrder';
 import Orders from './pages/Orders';
+import Contact from './pages/Contact';
 
 function App() {
   return (
@@ -95,6 +96,11 @@ function App() {
             <Route path="/cart" render={() => (
               <Layout>
                 <ShoppingCart />
+              </Layout>
+            )} />
+            <Route path="/contact" render={() => (
+              <Layout>
+                <Contact />
               </Layout>
             )} />
             <ProtectedRoute path="/create-order">
