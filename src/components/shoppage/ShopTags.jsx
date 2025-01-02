@@ -10,7 +10,7 @@ const ShopTags = ({ category }) => {
 
     const [gender, setGender] = useState("k");
 
-    useEffect(() => {
+    useEffect(() => { 
         if (category.gender === "k") {
             setGender("kadin");
         } else {
