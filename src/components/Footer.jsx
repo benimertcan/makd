@@ -1,8 +1,7 @@
 import { Phone , Plane, LocateIcon} from "lucide-react"
+import { Link } from 'react-router-dom';
 
 function Footer({ children }) {
-
-
     return (
         <>
             <footer className="flex  py-16 w-full gap-10 place-content-center bg-bg-dark text-text-light">
@@ -12,7 +11,11 @@ function Footer({ children }) {
                             <h2 className="h2">Consulting Agency For Your Business</h2>
                             <h5 className="h5 text-second-text-color">the quick fox jumps over the lazy dog</h5>
                         </div>
-                        <button className='bg-primary-blue text-nowrap w-48 h-10 text-2xl font-bold rounded-md'>Contact Us</button>
+                        <Link to="/contact">
+                            <button className='bg-primary-blue text-nowrap w-48 h-10 text-2xl font-bold rounded-md hover:bg-blue-700 transition-colors'>
+                                Contact Us
+                            </button>
+                        </Link>
                     </div>
                     <div className="flex flex-col w-full justify-between gap-10 md:flex-row">
                         <div>
