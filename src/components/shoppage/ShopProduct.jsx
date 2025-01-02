@@ -29,7 +29,7 @@ const ShopProduct = ({ product, gender = "all", categoryName = "category" }) => 
     return (
         <div 
             onClick={handleProductClick}
-            className="flex flex-col place-items-center w-72 gap-4 cursor-pointer transition-all duration-300 hover:shadow-lg hover:scale-[1.02]"
+            className="flex flex-col place-items-center w-72 gap-4 cursor-pointer transition-all duration-300 hover:shadow-lg hover:scale-[1.02] "
         >
             <div className="relative w-full aspect-square overflow-hidden">
                 <img 

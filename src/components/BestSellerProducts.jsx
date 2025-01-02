@@ -4,7 +4,7 @@ function BestSeller() {
     const images = ["/images/caramelCone.png", "/images/apple.jpg", "/images/meat.jpg"]
     return (
         <>
-            <div className=" flex flex-col ">
+            <div className=" flex flex-col items-center ">
                 <div className="flex flex-col gap-5 p-3 mx-4 justify-center place-content-center content-center text-center place-items-center border-solid border-b-[1px] lg:flex-row lg:justify-between">
                     <h3 className="h3 text-text-dark">BESTSELLER PRODUCTS</h3>
                     <div className="flex flex-row gap-5 ">

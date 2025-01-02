@@ -121,7 +121,7 @@ const ShopProducts = ({ products, isLoading }) => {
                 )}
             </div>
            
-            <Brands />
+            
         </div>
     );
 };
