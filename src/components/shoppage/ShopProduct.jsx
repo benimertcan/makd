@@ -42,7 +42,7 @@ const ShopProduct = ({ product, gender = "all", categoryName = "category" }) => 
                         Low Stock
                     </span>
                 )}
-            </div>
+            </div> 
             <h6 className="h6 text-text-dark truncate w-full text-center">{name}</h6>
             <h6 className="h6 text-second-text-color justify-center gap-2 flex flex-row line-clamp-1">
                 {description}
