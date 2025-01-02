@@ -58,6 +58,14 @@ const shoppingCartReducer = (state = initialState, action) => {
             localStorage.setItem('shoppingCart', JSON.stringify(newState));
             return newState;
 
+        case 'RESET_CART':
+            newState = {
+                ...state,
+                cart: []
+            };
+            localStorage.setItem('shoppingCart', JSON.stringify(newState));
+            return newState;
+
         default:
             return state;
     }
