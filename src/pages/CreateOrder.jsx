@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
+import { resetCart } from '../store/cartSlice';
 
 const CreateOrder = () => {
+    const dispatch = useDispatch();
+    const history = useHistory();
     // Address States
     const [addresses, setAddresses] = useState([]);
     const [showAddressForm, setShowAddressForm] = useState(false);
@@ -19,6 +23,12 @@ const CreateOrder = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const token = useSelector(state => state.auth.token);
+    const cartItems = useSelector(state => state.cart.cart);
+    const cartTotal = useSelector(state => {
+        return state.cart.cart.reduce((total, item) => {
+            return total + (item.product.price * item.count);
+        }, 0);
+    });
 
     // Address Form Data
     const [addressFormData, setAddressFormData] = useState({
@@ -38,6 +48,10 @@ const CreateOrder = () => {
         expire_year: '',
         name_on_card: ''
     });
+
+    // Add state for CCV
+    const [ccv, setCcv] = useState('');
+    const [orderSuccess, setOrderSuccess] = useState(false);
 
     // Configure axios with token
     useEffect(() => {
@@ -171,6 +185,52 @@ const CreateOrder = () => {
             setCards(Array.isArray(response.data) ? response.data : []);
         } catch (error) {
             console.error('Error deleting card:', error);
+        }
+    };
+
+    const handleCreateOrder = async () => {
+        if (!selectedAddress || !selectedCard || !ccv) {
+            setError('Please select both address and payment method, and provide CCV');
+            return;
+        }
+
+        try {
+            const orderData = {
+                address_id: selectedAddress.id,
+                order_date: new Date().toISOString(),
+                card_no: parseInt(selectedCard.card_no),
+                card_name: selectedCard.name_on_card,
+                card_expire_month: parseInt(selectedCard.expire_month),
+                card_expire_year: parseInt(selectedCard.expire_year),
+                card_ccv: parseInt(ccv),
+                price: cartTotal,
+                products: cartItems.map(item => ({
+                    product_id: item.product.id,
+                    count: item.count,
+                    detail: item.product.variant || ''
+                }))
+            };
+
+            await axios.post('https://workintech-fe-ecommerce.onrender.com/order', orderData);
+            
+            // Show success message
+            setOrderSuccess(true);
+            
+            // Reset states
+            setSelectedAddress(null);
+            setSelectedCard(null);
+            setCcv('');
+            
+            // Reset cart
+            dispatch(resetCart());
+            
+            // Navigate after a short delay
+            setTimeout(() => {
+                history.push('/');
+            }, 3000);
+        } catch (error) {
+            console.error('Error creating order:', error);
+            setError('Failed to create order. Please try again.');
         }
     };
 
@@ -490,6 +550,41 @@ const CreateOrder = () => {
                             </form>
                         </div>
                     )}
+                    
+                    {/* Add CCV input and Submit Order button when both address and card are selected */}
+                    {selectedCard && (
+                        <div className="mt-8">
+                            <div className="max-w-xs mx-auto">
+                                <input
+                                    type="password"
+                                    value={ccv}
+                                    onChange={(e) => setCcv(e.target.value)}
+                                    placeholder="Enter CCV"
+                                    className="border rounded p-2 w-full mb-4"
+                                    maxLength="3"
+                                    pattern="[0-9]{3}"
+                                    required
+                                />
+                                <button
+                                    onClick={handleCreateOrder}
+                                    className="w-full bg-primary-blue text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+                                >
+                                    Complete Order
+                                </button>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            )}
+            
+            {/* Success Message */}
+            {orderSuccess && (
+                <div className="fixed inset-0 bg-text-light opacity-90 flex items-center justify-center z-50">
+                    <div className="p-8 text-center">
+                        <h2 className="text-2xl font-bold text-green-600 mb-4">Order Successfully Created!</h2>
+                        <p className="text-gray-600 mb-4">Thank you for your purchase. You will be redirected to the home page.</p>
+                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-blue mx-auto"></div>
+                    </div>
                 </div>
             )}
         </div>

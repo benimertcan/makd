@@ -49,6 +49,10 @@ const cartSlice = createSlice({
                 saveCart(state);
             }
         },
+        resetCart: (state) => {
+            state.cart = [];
+            saveCart(state);
+        },
         addToCart: (state, action) => {
             const existingItem = state.cart.find(item => item.product.id === action.payload.id);
             if (existingItem) {
@@ -73,6 +77,7 @@ export const {
     decrementProduct,
     removeFromCart,
     toggleProductSelect,
+    resetCart,
     addToCart
 } = cartSlice.actions;
 
