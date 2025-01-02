@@ -1,7 +1,12 @@
 import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../store/cartSlice";
+import { toast } from "react-toastify";
+import { ShoppingCart } from "lucide-react";
 
 const ShopProduct = ({ product, gender = "all", categoryName = "category" }) => {
     const history = useHistory();
+    const dispatch = useDispatch();
     
     if (!product) return null;
 
@@ -12,9 +17,13 @@ const ShopProduct = ({ product, gender = "all", categoryName = "category" }) => 
     const productNameSlug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
     
     const handleProductClick = () => {
-        console.log("Product clicked:", { id, name, category_id });
-        // Navigate to product detail with the required URL format
         history.push(`/shop/${gender}/${categoryName}/${category_id}/${productNameSlug}/${id}`);
+    };
+
+    const handleAddToCart = (e) => {
+        e.stopPropagation(); // Prevent triggering the card click
+        dispatch(addToCart(product));
+        toast.success('Product added to cart!');
     };
 
     return (
@@ -38,8 +47,15 @@ const ShopProduct = ({ product, gender = "all", categoryName = "category" }) => 
             <h6 className="h6 text-second-text-color justify-center gap-2 flex flex-row line-clamp-1">
                 {description}
             </h6>
-            <div className="flex flex-row gap-2 self-center">
+            <div className="flex flex-row gap-2 self-center items-center">
                 <h5 className="h5 text-text-price">${price}</h5>
+                <button
+                    onClick={handleAddToCart}
+                    className="bg-primary-blue text-white p-2 rounded-full hover:bg-blue-600 transition-colors"
+                    aria-label="Add to cart"
+                >
+                    <ShoppingCart className="size-5" />
+                </button>
             </div>
             <div className="flex flex-row place-self-center gap-1">
                 <div className="bg-[#23A6F0] size-5 rounded-full" />

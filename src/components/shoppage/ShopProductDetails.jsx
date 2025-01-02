@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProductById } from "../../actions/productActions";
+import { addToCart } from "../../store/cartSlice";
 import { ChevronRight, Heart, Loader2, Star, ArrowLeft, ChevronLeft, ChevronRight as ChevronRightIcon, Eye } from "lucide-react";
 import { Link } from "react-router-dom";
 import ProductTabs from "./ProductTabs";
 import BestSellerProducts from "../BestSellerProducts";
+import { toast } from 'react-toastify';
 
 const ShopProductDetails = () => {
     const { gender, categoryName, categoryId, productNameSlug, productId } = useParams();
@@ -217,7 +219,13 @@ const ShopProductDetails = () => {
                     </div>
 
                     <div className="flex flex-wrap gap-4">
-                        <button className="px-8 py-3 bg-primary-blue text-white rounded-md hover:bg-primary-blue/90 transition-colors">
+                        <button 
+                            className="px-8 py-3 bg-primary-blue text-white rounded-md hover:bg-primary-blue/90 transition-colors"
+                            onClick={() => {
+                                dispatch(addToCart(currentProduct));
+                                toast.success('Product added to cart!');
+                            }}
+                        >
                             Select Options
                         </button>
                         <button className="p-3 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors">

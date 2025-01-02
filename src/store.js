@@ -5,7 +5,7 @@ import logger from 'redux-logger';
 import authReducer from './reducers/authReducer';
 import clientReducer from './reducers/clientReducer';
 import productReducer from './reducers/productReducer';
-import cartReducer from './reducers/cartReducer';
+import cartReducer from './store/cartSlice';
 import categoryReducer from './reducers/categoryReducer';
 
 const store = configureStore({
